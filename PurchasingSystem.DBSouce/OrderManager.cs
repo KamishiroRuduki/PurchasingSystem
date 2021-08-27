@@ -83,5 +83,26 @@ namespace PurchasingSystem.DBSouce
 
             }
         }
+        public static List<CostData> GetCostData()
+        {
+            try
+            {
+                using (ContextModel context = new ContextModel())
+                {
+                    var query =
+                        (from item in context.CostDatas
+                         select item);
+
+                    var list = query.ToList();
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {                
+                Logger.WriteLog(ex);
+                return null;
+
+            }
+        }
     }
 }

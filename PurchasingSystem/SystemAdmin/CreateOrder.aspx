@@ -26,8 +26,10 @@ onafterpaste="this.value=this.value.replace(/\D/g,'')"  size="10" /><br/>
             })
             $("#btn2").click(function () {
                 var amount = $("#sum").val();
-                var dec = Decimal.mul(amount, 0.296);
-                var num = parseInt(dec.toFixed(), 10) + 200;
+                var exRate = $("#ContentPlaceHolder1_HF2").val();
+                var purchaseCost = parseInt($("#ContentPlaceHolder1_HF3").val()) ;
+                var dec = Decimal.mul(amount, exRate);
+                var num = parseInt(dec.toFixed(), 10) + purchaseCost;
                 $("#ContentPlaceHolder1_txtPrice").val(num);
                 $("#ContentPlaceHolder1_HiddenField1").val(num);
                 $("#divCalculation").hide(300);
@@ -56,6 +58,7 @@ onafterpaste="this.value=this.value.replace(/\D/g,'')"  size="10" /><br/>
          備註:<asp:TextBox ID="txtRemarks" runat="server" Height="70px" Width="420px"></asp:TextBox><br />
         <asp:Button ID="btnsave" runat="server" Text="送出" OnClick="btnsave_Click" /><br />
         <asp:Literal ID="ltmsg" runat="server"></asp:Literal>
-
+        <asp:HiddenField ID="HF2" runat="server" />
+        <asp:HiddenField ID="HF3" runat="server" />
     </div>
 </asp:Content>

@@ -27,6 +27,12 @@ namespace PurchasingSystem.SystemAdmin
                 return;
 
             }
+            var costDataList = OrderManager.GetCostData();
+            this.HF2.Value = costDataList[0].Value.ToString();
+            var integer = (int)costDataList[1].Value;
+            this.HF3.Value = integer.ToString();
+             
+
         }
 
         protected void btnsave_Click(object sender, EventArgs e)

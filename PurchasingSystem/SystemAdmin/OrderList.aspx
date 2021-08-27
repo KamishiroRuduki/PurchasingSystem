@@ -5,6 +5,8 @@
     <script>
         $(function () {
             $("#ordercontent").hide();
+            var exRate = $("#ContentPlaceHolder1_HF2").val();
+            var purchaseCost = parseInt($("#ContentPlaceHolder1_HF3").val());
             $(".btncontent").click(function () {
                 $("#ordercontent").empty();
                // var ID = $("#ContentPlaceHolder1_OrderListView_HF1_1").val();
@@ -28,8 +30,8 @@
                             </tr>`;
                             table += htmlText;
                         }
-                        table += `<tr> <td></td> <td></td> <td>日幣匯率</td> <td>0.296</th> </tr>
-                                  <tr> <td></td> <td></td> <td>代購費</td> <td>200</th> </tr>
+                        table += `<tr> <td></td> <td></td> <td>日幣匯率</td> <td>${exRate}</td> </tr>
+                                  <tr> <td></td> <td></td> <td>代購費</td> <td>${purchaseCost}</td> </tr>
                                   </table>`;
                         $("#ordercontent").append(table);
                     }
@@ -94,7 +96,7 @@
             </Columns>
         </asp:GridView>
 
-        <asp:HiddenField ID="HF1" runat="server"/>
-        <asp:HiddenField ID="HF2" runat="server" />
+        <asp:HiddenField ID="HF2" runat="server"/>
+        <asp:HiddenField ID="HF3" runat="server" />
     </div>
 </asp:Content>

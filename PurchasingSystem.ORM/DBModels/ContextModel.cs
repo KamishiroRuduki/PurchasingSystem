@@ -12,12 +12,17 @@ namespace PurchasingSystem.ORM.DBModels
         {
         }
 
+        public virtual DbSet<CostData> CostDatas { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<UserInfo> UserInfoes { get; set; }
         public virtual DbSet<Commodity> Commodities { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<CostData>()
+                .Property(e => e.Value)
+                .HasPrecision(18, 4);
+
             modelBuilder.Entity<Order>()
                 .Property(e => e.PriceSum)
                 .HasPrecision(18, 0);
