@@ -80,7 +80,8 @@ namespace PurchasingSystem.SystemAdmin
                 CreateDate = DateTime.Now,
                 IsBuy = 0,
                 IsSent = 0,
-                Remarks = this.txtRemarks.Text,                
+                Remarks = this.txtRemarks.Text,
+                OrderStatus = 0
 
             };
             OrderManager.CreateOrder(neworder);

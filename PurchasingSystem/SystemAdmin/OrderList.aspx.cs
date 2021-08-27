@@ -1,5 +1,6 @@
 ﻿using PurchasingSystem.Auth;
 using PurchasingSystem.DBSouce;
+using PurchasingSystem.ORM.DBModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,42 @@ namespace PurchasingSystem.SystemAdmin
 
         protected void OrderListView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            var row = e.Row;
+            if (row.RowType == DataControlRowType.DataRow)
+            {
+                Label lbl = row.FindControl("lblstatus") as Label;
+                var dr = row.DataItem as Order;
+                int orderStatus = dr.OrderStatus;
 
+                if (orderStatus == 0)
+                {
+                    // ltl.Text = "支出";
+                    lbl.Text = "未處理";
+                }
+
+                else if (orderStatus == 1)
+                {
+                    //   ltl.Text = "收入";
+                    lbl.Text = "未付款";
+                }
+
+                else if (orderStatus == 2)
+                {
+                    //   ltl.Text = "收入";
+                    lbl.Text = "處理中";
+                }
+
+                else if (orderStatus == 3)
+                {
+                    //   ltl.Text = "收入";
+                    lbl.Text = "已結案";
+                }
+                else if (orderStatus == -1)
+                {
+                    //   ltl.Text = "收入";
+                    lbl.Text = "此訂單不成立";
+                }
+            }
         }
     }
 }

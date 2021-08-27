@@ -27,5 +27,7 @@ namespace PurchasingSystem.ORM.DBModels
         public int? Amount { get; set; }
 
         public int? ShippingFee { get; set; }
+
+        public int OrderStatus { get; set; }
     }
 }

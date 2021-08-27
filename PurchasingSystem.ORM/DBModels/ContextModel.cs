@@ -12,9 +12,9 @@ namespace PurchasingSystem.ORM.DBModels
         {
         }
 
-        public virtual DbSet<Commodity> Commodities { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<UserInfo> UserInfoes { get; set; }
+        public virtual DbSet<Commodity> Commodities { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
