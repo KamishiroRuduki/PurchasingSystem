@@ -4,16 +4,38 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using PurchasingSystem.ORM.DBModels;
+using PurchasingSystem.Auth;
 using PurchasingSystem.DBSouce;
+using PurchasingSystem.ORM.DBModels;
 
-namespace PurchasingSystem
+namespace PurchasingSystem.SystemAdmin
 {
-    public partial class Register : System.Web.UI.Page
+    public partial class UserDetail : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!AuthManger.IsLogined())
+            {
+                Response.Redirect("/login.aspx");
+                return;
+            }
+            var cUser = AuthManger.GetCurrentUser();
+            if (cUser == null)
+            {
+                this.Session["UserLoginInfo"] = null;
+                Response.Redirect("/Login.aspx");
+                return;
 
+            }
+            if (!this.IsPostBack) {
+            this.lblAccount.Text = cUser.Account;
+            this.txtName.Text = cUser.Name;
+            this.txtPhone.Text = cUser.MobilePhone;
+            this.txtMail.Text = cUser.Email;
+            this.txtAddress.Text = cUser.Address;
+            this.payType.SelectedValue = cUser.PaymentType.ToString();
+            this.txtPaymentProfile.Text = cUser.PaymentProfile;
+            }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -24,45 +46,30 @@ namespace PurchasingSystem
                 this.ltMsg.Text = string.Join("<br/>", msgList);
                 return;
             }
-
-            string accText = this.txtAccount.Text;
-            string phoneText = this.txtPhone.Text;
-            string mailText = this.txtMail.Text;
-            if (!UserInfoManager.IsAccountCreated(accText))
-            {
-                this.ltMsg.Text = "此帳號已經被使用過了";
-                return;
-            }
-            if (!UserInfoManager.IsMailCreated(mailText))
+            var user = UserInfoManager.GETUserInfoAccount(this.Session["UserLoginInfo"].ToString());
+            var inteager = Convert.ToInt32(this.payType.SelectedValue);
+            if (!UserInfoManager.IsMailCreated(this.txtMail.Text))
             {
                 this.ltMsg.Text = "此信箱已經被使用過了";
                 return;
             }
-            if (!UserInfoManager.IsPhoneCreated(phoneText))
+            if (!UserInfoManager.IsPhoneCreated(this.txtPhone.Text))
             {
                 this.ltMsg.Text = "此手機已經被使用過了";
                 return;
             }
-            string PaymentTypeText = this.payType.SelectedValue;
-            int PaymentType = Convert.ToInt32(PaymentTypeText);
-            UserInfo newUser = new UserInfo()
+            ORM.DBModels.UserInfo userchange = new ORM.DBModels.UserInfo()
             {
-
-            UserID = Guid.NewGuid(),
-            Account = this.txtAccount.Text,
-            PWD = this.txtPassword.Text,
-            Name = this.txtName.Text,
-            MobilePhone = this.txtPhone.Text,
-            Email = this.txtMail.Text,
-            Address = this.txtAddress.Text,
-            PaymentProfile = this.txtPaymentProfile.Text,
-            PaymentType = PaymentType,
-            CreateDate = DateTime.Now,
-            BlackList = 0
-
+                Account = lblAccount.Text,
+                Name = this.txtName.Text,
+                MobilePhone = this.txtPhone.Text,
+                Email = this.txtMail.Text,
+                Address = this.txtAddress.Text,
+                PaymentType = inteager,
+                PaymentProfile = this.txtPaymentProfile.Text
             };
-            UserInfoManager.CreateUser(newUser);
-            Response.Redirect("Default1.aspx");
+            UserInfoManager.UpdateUser(userchange);
+
         }
 
         private bool CheckInput(out List<string> errorMsgList)
@@ -73,14 +80,6 @@ namespace PurchasingSystem
                 msgList.Add("Type必須是0或1");
             }
 
-            if (string.IsNullOrWhiteSpace(this.txtAccount.Text))
-            {
-                msgList.Add("請輸入帳號");
-            }
-            if (string.IsNullOrWhiteSpace(this.txtPassword.Text))
-            {
-                msgList.Add("請輸入密碼");
-            }
             if (string.IsNullOrWhiteSpace(this.txtPhone.Text))
             {
                 msgList.Add("請輸入手機號碼");
@@ -110,12 +109,24 @@ namespace PurchasingSystem
                 msgList.Add("請輸入卡號或銀行帳號");
             }
 
-            
+
             errorMsgList = msgList;
             if (msgList.Count == 0)
                 return true;
             else
                 return false;
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/SystemAdmin/UserInfo.aspx");
+            return;
+        }
+
+        protected void btnPwd_Click(object sender, EventArgs e)
+        {
+            Response.Redirect($"/SystemAdmin/UserPasswordchange.aspx");
+            return;
         }
     }
 }

@@ -7,20 +7,20 @@
 // </自動生成>
 //------------------------------------------------------------------------------
 
-namespace PurchasingSystem.SystemAdmin
+namespace PurchasingSystem.SystemManger
 {
 
 
-    public partial class OrderList
+    public partial class OrderListManager
     {
 
         /// <summary>
-        /// OrderListView コントロール。
+        /// GridView1 コントロール。
         /// </summary>
         /// <remarks>
         /// 自動生成されたフィールド。
         /// 変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView OrderListView;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
     }
 }

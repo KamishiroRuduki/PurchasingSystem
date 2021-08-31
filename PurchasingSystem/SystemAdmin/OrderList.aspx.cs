@@ -16,7 +16,7 @@ namespace PurchasingSystem.SystemAdmin
         {
             if (!AuthManger.IsLogined())
             {
-                Response.Redirect("/login.aspx");
+                Response.Redirect("/Login.aspx");
                 return;
             }
             var cUser = AuthManger.GetCurrentUser();
@@ -27,18 +27,16 @@ namespace PurchasingSystem.SystemAdmin
                 return;
 
             }
-            var costDataList = OrderManager.GetCostData();
-            this.HF2.Value = costDataList[0].Value.ToString();
-            var integer = (int)costDataList[1].Value;
-            this.HF3.Value = integer.ToString();
-
-            var list = OrderManager.GETAllOrderInfo(cUser.UserGuid);
-            if(list.Count > 0 )
+            if (!IsPostBack)
             {
-                this.OrderListView.DataSource = list;
-                this.OrderListView.DataBind();
-            }
 
+                var list = OrderManager.GETAllOrderInfo(cUser.UserGuid);
+                if (list.Count > 0)
+                {
+                    this.OrderListView.DataSource = list;
+                    this.OrderListView.DataBind();
+                }
+            }
         }
 
         protected void OrderListView_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -79,6 +77,50 @@ namespace PurchasingSystem.SystemAdmin
                     lbl.Text = "此訂單不成立";
                 }
             }
+        }
+
+        protected void OrderListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnCacel_Click1(object sender, EventArgs e)
+        {
+            
+
+        }
+
+        protected void OrderListView_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            
+            if(e.CommandName == "Cancel") 
+            { 
+
+                var custid = Convert.ToInt32( e.CommandArgument.ToString());
+                var thisOrder = OrderManager.GETOrderInfo(custid);
+                if(thisOrder.IsBuy == 0 && thisOrder.OrderStatus >=0 && thisOrder.OrderStatus<=1 )
+                { 
+                OrderManager.UpdateOrderStatus(custid, -1);
+                Response.Redirect("/SystemAdmin/OrderList.aspx");
+                }
+
+            }
+
+        }
+
+        protected void OrderListView_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+
+        }
+
+        protected void OrderListView_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+
+        }
+
+        protected void OrderListView_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+
         }
     }
 }

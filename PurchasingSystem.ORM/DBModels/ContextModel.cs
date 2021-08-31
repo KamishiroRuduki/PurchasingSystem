@@ -12,10 +12,11 @@ namespace PurchasingSystem.ORM.DBModels
         {
         }
 
+        public virtual DbSet<Commodity> Commodities { get; set; }
         public virtual DbSet<CostData> CostDatas { get; set; }
+        public virtual DbSet<Manager> Managers { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<UserInfo> UserInfoes { get; set; }
-        public virtual DbSet<Commodity> Commodities { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -23,9 +24,25 @@ namespace PurchasingSystem.ORM.DBModels
                 .Property(e => e.Value)
                 .HasPrecision(18, 4);
 
+            modelBuilder.Entity<Manager>()
+                .Property(e => e.Account)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Manager>()
+                .Property(e => e.Password)
+                .IsUnicode(false);
+
             modelBuilder.Entity<Order>()
                 .Property(e => e.PriceSum)
                 .HasPrecision(18, 0);
+
+            modelBuilder.Entity<Order>()
+                .Property(e => e.CashRate)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Order>()
+                .Property(e => e.PurchasingCost)
+                .IsUnicode(false);
 
             modelBuilder.Entity<UserInfo>()
                 .Property(e => e.Account)

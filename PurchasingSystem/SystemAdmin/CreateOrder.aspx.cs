@@ -87,7 +87,9 @@ namespace PurchasingSystem.SystemAdmin
                 IsBuy = 0,
                 IsSent = 0,
                 Remarks = this.txtRemarks.Text,
-                OrderStatus = 0
+                OrderStatus = 0,
+                CashRate = this.HF2.Value,
+                PurchasingCost = this.HF3.Value
 
             };
             OrderManager.CreateOrder(neworder);
@@ -101,7 +103,8 @@ namespace PurchasingSystem.SystemAdmin
                     OrderID = order.ID,
                     Name = ssName[i],
                     URL = ssURL[i],
-                    Quantity = Convert.ToInt32(ssQuantity[i])
+                    Quantity = Convert.ToInt32(ssQuantity[i]),
+                    IsBuy = 0
                 };
                 CommodityManager.CreateCommodity(newCommodity);
 

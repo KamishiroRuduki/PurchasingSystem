@@ -137,5 +137,62 @@ namespace PurchasingSystem.DBSouce
 
             }
         }
+
+        public static void UpdateUser(UserInfo user)
+        {
+            try
+            {
+                using (ContextModel context = new ContextModel())
+                {
+                    var query =
+                        (from item in context.UserInfoes
+                         where item.Account == user.Account
+                         select item);
+
+                    var list = query.FirstOrDefault();
+                    if(list!= null)
+                    {                       
+                        list.Name = user.Name;
+                        list.MobilePhone = user.MobilePhone;
+                        list.Email = user.Email;
+                        list.Address = user.Address;
+                        list.PaymentType = user.PaymentType;
+                        list.PaymentProfile = user.PaymentProfile;
+                    }
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog(ex);
+
+            }
+        }
+
+        public static void UpdateUserPassword(string account, string pwd)
+        {
+            try
+            {
+                using (ContextModel context = new ContextModel())
+                {
+                    var query =
+                        (from item in context.UserInfoes
+                         where item.Account == account
+                         select item);
+
+                    var list = query.FirstOrDefault();
+                    if (list != null)
+                    {
+                        list.PWD = pwd;
+                    }
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog(ex);
+
+            }
+        }
     }
 }

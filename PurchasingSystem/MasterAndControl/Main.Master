@@ -17,15 +17,15 @@
     <form id="form1" runat="server">
         <div class="container">
             <div>
-            <div class="d-inline-block">
-                <h1>二次元商品代購系統</h1>
+                <div class="d-inline-block">
+                    <h1>二次元商品代購系統</h1>
+                </div>
+                <div class="d-inline-block">
+                    <%--<a href="Login.aspx">註冊/登入</a>--%>
+                    <asp:Literal ID="litLogin" runat="server"></asp:Literal>
+                    <asp:Button ID="btnLogout" runat="server" Text="登出" Visible="False" OnClick="btnLogout_Click" />
+                </div>
             </div>
-            <div class="d-inline-block">
-                <%--<a href="Login.aspx">註冊/登入</a>--%>
-                <asp:Literal ID="litLogin" runat="server"></asp:Literal>
-                <asp:Button ID="btnLogout" runat="server" Text="登出" Visible="False" OnClick="btnLogout_Click" />
-            </div>
-             </div>
             <div class="row">
 
                 <table class="table">

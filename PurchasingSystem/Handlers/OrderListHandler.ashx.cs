@@ -26,7 +26,7 @@ namespace PurchasingSystem.Handlers
                 context.Response.End();
             }
             int orderID = Convert.ToInt32(ID);
-            List<Commodity> list = CommodityManager.GETCommodityInfo(orderID);
+            List<CommodityModel> list = CommodityManager.GETCommodityInfo(orderID);
             string jsonText = Newtonsoft.Json.JsonConvert.SerializeObject(list);
             context.Response.ContentType = "application/json";
             context.Response.Write(jsonText);

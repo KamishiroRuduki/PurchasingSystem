@@ -63,6 +63,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -105,7 +106,13 @@
     <Content Include="Scripts\js\bootstrap.min.js" />
     <Content Include="SystemAdmin\CreateOrder.aspx" />
     <Content Include="SystemAdmin\OrderList.aspx" />
+    <Content Include="SystemAdmin\UserDetail.aspx" />
     <Content Include="SystemAdmin\UserInfo.aspx" />
+    <Content Include="SystemAdmin\UserPasswordchange.aspx" />
+    <Content Include="SystemManger\Login.aspx" />
+    <Content Include="SystemManger\ManagerInfo.aspx" />
+    <Content Include="SystemManger\OrderDetail.aspx" />
+    <Content Include="SystemManger\OrderListManager.aspx" />
     <Content Include="Web.config" />
     <Content Include="Default1.aspx" />
     <Content Include="Login.aspx" />
@@ -130,6 +137,13 @@
     </Compile>
     <Compile Include="MasterAndControl\Main.Master.designer.cs">
       <DependentUpon>Main.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterAndControl\Manager.Master.cs">
+      <DependentUpon>Manager.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterAndControl\Manager.Master.designer.cs">
+      <DependentUpon>Manager.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Default1.aspx.cs">
@@ -167,6 +181,13 @@
     <Compile Include="SystemAdmin\OrderList.aspx.designer.cs">
       <DependentUpon>OrderList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SystemAdmin\UserDetail.aspx.cs">
+      <DependentUpon>UserDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SystemAdmin\UserDetail.aspx.designer.cs">
+      <DependentUpon>UserDetail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SystemAdmin\UserInfo.aspx.cs">
       <DependentUpon>UserInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -174,10 +195,46 @@
     <Compile Include="SystemAdmin\UserInfo.aspx.designer.cs">
       <DependentUpon>UserInfo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SystemAdmin\UserPasswordchange.aspx.cs">
+      <DependentUpon>UserPasswordchange.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SystemAdmin\UserPasswordchange.aspx.designer.cs">
+      <DependentUpon>UserPasswordchange.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SystemManger\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SystemManger\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SystemManger\ManagerInfo.aspx.cs">
+      <DependentUpon>ManagerInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SystemManger\ManagerInfo.aspx.designer.cs">
+      <DependentUpon>ManagerInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SystemManger\OrderDetail.aspx.cs">
+      <DependentUpon>OrderDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SystemManger\OrderDetail.aspx.designer.cs">
+      <DependentUpon>OrderDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SystemManger\OrderListManager.aspx.cs">
+      <DependentUpon>OrderListManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SystemManger\OrderListManager.aspx.designer.cs">
+      <DependentUpon>OrderListManager.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="MasterAndControl\Main.Master" />
     <Content Include="Handlers\OrderListHandler.ashx" />
+    <Content Include="MasterAndControl\Manager.Master" />
     <None Include="packages.config" />
     <Content Include="Scripts\css\bootstrap-grid.css.map" />
     <Content Include="Scripts\css\bootstrap-grid.min.css.map" />

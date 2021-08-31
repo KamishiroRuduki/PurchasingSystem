@@ -29,5 +29,13 @@ namespace PurchasingSystem.ORM.DBModels
         public int? ShippingFee { get; set; }
 
         public int OrderStatus { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string CashRate { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        public string PurchasingCost { get; set; }
     }
 }

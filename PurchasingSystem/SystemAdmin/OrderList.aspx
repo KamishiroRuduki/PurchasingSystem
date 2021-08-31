@@ -1,15 +1,12 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterAndControl/Main.Master" AutoEventWireup="true" CodeBehind="OrderList.aspx.cs" Inherits="PurchasingSystem.SystemAdmin.OrderList" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterAndControl/Main.Master" AutoEventWireup="true"  enableEventValidation="false" CodeBehind="OrderList.aspx.cs" Inherits="PurchasingSystem.SystemAdmin.OrderList"  %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script>
         $(function () {
             $("#ordercontent").hide();
-            var exRate = $("#ContentPlaceHolder1_HF2").val();
-            var purchaseCost = parseInt($("#ContentPlaceHolder1_HF3").val());
             $(".btncontent").click(function () {
                 $("#ordercontent").empty();
-               // var ID = $("#ContentPlaceHolder1_OrderListView_HF1_1").val();
                 var ID = this.value;
                 var strURL = "http://localhost:4836/Handlers/OrderListHandler.ashx?OrderID=" + ID;
                 $.ajax({
@@ -30,8 +27,8 @@
                             </tr>`;
                             table += htmlText;
                         }
-                        table += `<tr> <td></td> <td></td> <td>日幣匯率</td> <td>${exRate}</td> </tr>
-                                  <tr> <td></td> <td></td> <td>代購費</td> <td>${purchaseCost}</td> </tr>
+                        table += `<tr> <td></td> <td></td> <td>日幣匯率</td> <td>${obj.CashRate}</td> </tr>
+                                  <tr> <td></td> <td></td> <td>代購費</td> <td>${obj.PurchasingCost}</td> </tr>
                                   </table>`;
                         $("#ordercontent").append(table);
                     }
@@ -39,16 +36,18 @@
 
                 $("#ordercontent").show(300);
             });
+         /*   $(".btnCacel").click(function () {
+                var ID = this.CommandArgument;
+                $.session.set("Cancel",ID);
 
-
-
+            });*/
         });
 
     </script>
     <div class="entry-content">
         <div id="ordercontent"></div>
 
-        <asp:GridView ID="OrderListView" runat="server" AutoGenerateColumns="False" OnRowDataBound="OrderListView_RowDataBound" CellPadding="20">
+        <asp:GridView ID="OrderListView" runat="server" AutoGenerateColumns="False" OnRowDataBound="OrderListView_RowDataBound" CellPadding="20" OnSelectedIndexChanged="OrderListView_SelectedIndexChanged" OnRowCommand="OrderListView_RowCommand" OnRowCancelingEdit="OrderListView_RowCancelingEdit" OnRowDeleting="OrderListView_RowDeleting" OnRowEditing="OrderListView_RowEditing">
             <Columns>
                 <asp:BoundField DataField="CreateDate" HeaderText="下單日期" />
 
@@ -79,6 +78,7 @@
 
                 <asp:TemplateField HeaderText="訂單狀態">
                     <ItemTemplate>
+                        <asp:HiddenField ID="HiddenField1" runat="server" />
                         <asp:Label ID="lblstatus" runat="server" Text="Label"></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
@@ -88,15 +88,20 @@
 
                 <asp:TemplateField HeaderText="訂單詳細">
                     <ItemTemplate>                       
-                        <button type="button" id="btncontent" Value='<%# Eval("ID") %>' class="btncontent"></button>
+                        <button type="button" id="btncontent" Value='<%# Eval("ID") %>' class="btncontent">詳細</button>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+            
+                <asp:TemplateField HeaderText="取消訂單">
+                    <ItemTemplate>
+                        <asp:Button ID="btnCacel" runat="server" Text="取消" Visible='<%# (Int32.Parse(Eval("OrderStatus").ToString()) >= 0 && Int32.Parse(Eval("OrderStatus").ToString()) <= 1 && Int32.Parse(Eval("IsBuy").ToString()) == 0) %>' OnClick="btnCacel_Click1" OnClientClick="javascript:return confirm('確定取消？');"  CommandName="Cancel"  CommandArgument='<%# Eval("ID") %>'  />
                     </ItemTemplate>
                 </asp:TemplateField>
 
 
             </Columns>
         </asp:GridView>
-
-        <asp:HiddenField ID="HF2" runat="server"/>
-        <asp:HiddenField ID="HF3" runat="server" />
     </div>
+    
 </asp:Content>

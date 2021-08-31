@@ -53,8 +53,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommodityManager.cs" />
+    <Compile Include="CommodityModel.cs" />
     <Compile Include="DBhelpercs.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="ManagerInfoManager.cs" />
     <Compile Include="OrderManager.cs" />
     <Compile Include="UserInfoManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

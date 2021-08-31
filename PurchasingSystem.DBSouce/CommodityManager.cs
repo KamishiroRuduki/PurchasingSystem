@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace PurchasingSystem.DBSouce
 {
     public class CommodityManager
@@ -30,7 +32,7 @@ namespace PurchasingSystem.DBSouce
             }
         }
 
-        public static List<Commodity> GETCommodityInfo(int orderID)
+        public static List<CommodityModel> GETCommodityInfo(int orderID)
         {
             try
             {
@@ -39,9 +41,35 @@ namespace PurchasingSystem.DBSouce
                     var query =
                         (from item in context.Commodities
                          where item.OrderID == orderID
-                         select item);
+                         join item2 in context.Orders on item.OrderID equals item2.ID
+                         select new 
+                         {
+                             item.ID,
+                             item.OrderID,
+                             item.Name,
+                             item.URL,
+                             item.Quantity,
+                             item.Price,
+                             item.Type,
+                             item.IsBuy,
+                             item2.CashRate,
+                             item2.PurchasingCost
+                         });
 
-                    var list = query.ToList();
+                    List<CommodityModel> list = query.Select(obj=> new CommodityModel()
+                    { 
+                        commodityID = obj.ID,
+                        orderID = obj.OrderID,
+                        Name = obj.Name,
+                        URL=obj.URL,
+                        Price=obj.Price,
+                        Quantity = obj.Quantity,
+                        Type = obj.Type,
+                        CashRate=obj.CashRate,
+                        PurchasingCost=obj.PurchasingCost,
+                        IsBuy =obj.IsBuy
+                    }).ToList();
+
                     return list;
                 }
             }
@@ -49,6 +77,35 @@ namespace PurchasingSystem.DBSouce
             {
                 Logger.WriteLog(ex);
                 return null;
+            }
+        }
+
+        public static void UpdateCommodity(int price, string type, int isbuy, int id)
+        {
+            try
+            {
+                using (ContextModel context = new ContextModel())
+                {
+                    var query =
+                        (from item in context.Commodities
+                         where item.ID == id
+                         select item);
+
+                    var list = query.FirstOrDefault();
+                    if (list != null)
+                    {
+                        list.Price = price;
+                        list.Type = type;
+                        list.IsBuy = isbuy;
+
+                    }
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog(ex);
+
             }
         }
     }

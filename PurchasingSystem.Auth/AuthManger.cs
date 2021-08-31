@@ -78,6 +78,69 @@ namespace PurchasingSystem.Auth
 
         }
 
+        public static bool ManagerIsLogined()
+        {
+            if (HttpContext.Current.Session["ManagerLoginInfo"] == null)
+                return false;
+            else
+                return true;
+        }
+        public static ManagerInfoModel GetCurrentManager()
+        {
+            string account = HttpContext.Current.Session["ManagerLoginInfo"] as string;
+            if (account == null)
+                return null;
+            var manager = ManagerInfoManager.GETManagerInfoAccount(account);
+
+            if (manager == null)
+            {
+                HttpContext.Current.Session["ManagerLoginInfo"] = null;
+                return null;
+            }
+
+            ManagerInfoModel model = new ManagerInfoModel();
+            model.ID = manager.UserID.ToString();
+            model.Account = manager.Account;
+            model.Name = manager.Name;
+
+
+            return model;
+        }
+
+        public static void ManagerLogout()
+        {
+            HttpContext.Current.Session["ManagerLoginInfo"] = null; //清除登入資訊
+        }
+
+        public static bool TryManagerLogin(string account, string pwd, out string errMsg)
+        {
+            //檢查帳號/密碼是否正確
+            if (string.IsNullOrWhiteSpace(account) || string.IsNullOrWhiteSpace(pwd))
+            {
+                errMsg = "帳號/密碼錯誤";
+                return false;
+            }
+            //檢查此帳號是否存在
+            var user = ManagerInfoManager.GETManagerInfoAccount(account);
+            if (user == null)
+            {
+                errMsg = $"帳號{account}不存在";
+                return false;
+            }
+            if (string.Compare(user.Account, account, true) == 0 && string.Compare(user.Password, pwd, false) == 0)
+            {
+                HttpContext.Current.Session["ManagerLoginInfo"] = user.Account;
+                errMsg = string.Empty;
+                return true;
+            }
+            else
+            {
+                errMsg = "登入失敗，請檢查帳號或密碼是否正確";
+                return false;
+            }
+
+        }
+
 
     }
 }
