@@ -110,7 +110,9 @@
     <Content Include="SystemAdmin\UserInfo.aspx" />
     <Content Include="SystemAdmin\UserPasswordchange.aspx" />
     <Content Include="SystemManger\Login.aspx" />
+    <Content Include="SystemManger\ManagerDetail.aspx" />
     <Content Include="SystemManger\ManagerInfo.aspx" />
+    <Content Include="SystemManger\ManagerList.aspx" />
     <Content Include="SystemManger\OrderDetail.aspx" />
     <Content Include="SystemManger\OrderListManager.aspx" />
     <Content Include="SystemManger\UserList.aspx" />
@@ -211,12 +213,26 @@
     <Compile Include="SystemManger\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SystemManger\ManagerDetail.aspx.cs">
+      <DependentUpon>ManagerDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SystemManger\ManagerDetail.aspx.designer.cs">
+      <DependentUpon>ManagerDetail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SystemManger\ManagerInfo.aspx.cs">
       <DependentUpon>ManagerInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="SystemManger\ManagerInfo.aspx.designer.cs">
       <DependentUpon>ManagerInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SystemManger\ManagerList.aspx.cs">
+      <DependentUpon>ManagerList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SystemManger\ManagerList.aspx.designer.cs">
+      <DependentUpon>ManagerList.aspx</DependentUpon>
     </Compile>
     <Compile Include="SystemManger\OrderDetail.aspx.cs">
       <DependentUpon>OrderDetail.aspx</DependentUpon>

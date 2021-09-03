@@ -28,6 +28,7 @@ namespace PurchasingSystem.SystemManger
                 return;
 
             }
+
             if (!IsPostBack)
             {
                 if (this.Request.QueryString["ID"] == null)
@@ -39,7 +40,7 @@ namespace PurchasingSystem.SystemManger
                         this.GridView1.DataBind();
                     }
 
-                    if (cUser.Level > 2)
+                    if (cUser.Level >= 2)
                     {
                         for (int i = 0; i < list.Count; i++)
                         {
