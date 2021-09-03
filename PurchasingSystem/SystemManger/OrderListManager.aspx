@@ -6,6 +6,7 @@
     <div class="entry-content">
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" OnRowDataBound="OrderListView_RowDataBound" CellPadding="10">
             <Columns>
+                    <asp:HyperLinkField  HeaderText="顧客姓名" DataTextField="Name" DataNavigateUrlFormatString="\SystemManger\UserList.aspx?ID={0}" DataNavigateUrlFields="UserID" />
                 <asp:TemplateField HeaderText="訂單狀態">
                     <ItemTemplate>
                         <asp:HiddenField ID="HiddenField1" runat="server" />

@@ -113,6 +113,7 @@
     <Content Include="SystemManger\ManagerInfo.aspx" />
     <Content Include="SystemManger\OrderDetail.aspx" />
     <Content Include="SystemManger\OrderListManager.aspx" />
+    <Content Include="SystemManger\UserList.aspx" />
     <Content Include="Web.config" />
     <Content Include="Default1.aspx" />
     <Content Include="Login.aspx" />
@@ -125,6 +126,7 @@
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\StringExtenstion.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -229,6 +231,13 @@
     </Compile>
     <Compile Include="SystemManger\OrderListManager.aspx.designer.cs">
       <DependentUpon>OrderListManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SystemManger\UserList.aspx.cs">
+      <DependentUpon>UserList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SystemManger\UserList.aspx.designer.cs">
+      <DependentUpon>UserList.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

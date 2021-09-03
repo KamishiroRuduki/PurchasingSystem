@@ -14,7 +14,7 @@ namespace PurchasingSystem.SystemAdmin
         {
             if (!AuthManger.IsLogined())
             {
-                Response.Redirect("/login.aspx");
+                Response.Redirect("/Login.aspx");
                 return;
             }
             var cUser = AuthManger.GetCurrentUser();
@@ -24,6 +24,12 @@ namespace PurchasingSystem.SystemAdmin
                 Response.Redirect("/Login.aspx");
                 return;
 
+            }
+            if(cUser.BlackList != 0 )
+            {
+                AuthManger.Logout();
+                Response.Write("<Script language='JavaScript'>alert('此帳號在黑名單內！'); location.href='/Default1.aspx'; </Script>");
+               // Response.Redirect("/SystemAdmin/UserInfo.aspx");
             }
         }
     }

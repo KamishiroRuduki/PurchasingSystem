@@ -40,6 +40,7 @@ namespace PurchasingSystem.Auth
             model.PaymentProfile = user.PaymentProfile;
             model.PaymentType = user.PaymentType;
             model.CreteDate = user.CreateDate;
+            model.BlackList = user.BlackList;
 
             return model;
         }
@@ -102,7 +103,7 @@ namespace PurchasingSystem.Auth
             model.ID = manager.UserID.ToString();
             model.Account = manager.Account;
             model.Name = manager.Name;
-
+            model.Level = manager.Level;
 
             return model;
         }

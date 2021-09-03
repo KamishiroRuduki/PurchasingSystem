@@ -17,6 +17,7 @@ namespace PurchasingSystem.Auth
         public string Address { get; set; }
         public string PaymentProfile { get; set; }
         public int PaymentType { get; set; }
+        public int BlackList { get; set; }
 
         public DateTime CreteDate { get; set; }
         public Guid UserGuid

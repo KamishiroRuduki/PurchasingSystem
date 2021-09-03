@@ -78,7 +78,21 @@ namespace PurchasingSystem.SystemAdmin
                 ltmsg.Text = ("請先從試算金額計算價錢");
                 return;
             }
-            var user = UserInfoManager.GETUserInfoAccount(this.Session["UserLoginInfo"].ToString());
+            if(Convert.ToInt32(strPrice) > 500000 || Convert.ToInt32(strPrice)< 0 )
+            {
+                ltmsg.Text = ("金額不正確");
+                return;
+            }
+            for (int i = 0; i < ssQuantity.Length; i++)
+            {
+                if(Convert.ToInt32(ssQuantity[i]) > 3)
+                {
+                    ltmsg.Text = ("同一件商品一人最多只能代購3個");
+                    return;
+                }
+
+            }
+                var user = UserInfoManager.GETUserInfoAccount(this.Session["UserLoginInfo"].ToString());
             Order neworder = new Order()
             {
                 UserID = user.UserID,

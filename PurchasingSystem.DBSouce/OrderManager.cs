@@ -175,7 +175,7 @@ namespace PurchasingSystem.DBSouce
             }
         }
         //-----------------------------------------------------以下是管理員使用的method-------------------------------------------------
-        public static List<Order> GETOrderInfoByManager()
+        public static List<OrderModel> GETOrderInfoByManager()
         {
             try
             {
@@ -184,11 +184,42 @@ namespace PurchasingSystem.DBSouce
                     var query =
                         (from item in context.Orders
                          where item.UserID == item.UserID && item.OrderStatus >=0
-                      //   orderby item.OrderStatus
-                         select item);
+                         //   orderby item.OrderStatus
+                         join item2 in context.UserInfoes on item.UserID equals item2.UserID
+                         select new
+                         {
+                             item.ID,
+                             item.UserID,
+                             item.PriceSum,
+                             item.CreateDate,
+                             item.IsBuy,
+                             item.IsSent,
+                             item.Remarks,
+                             item.Amount,
+                             item.ShippingFee,
+                             item.OrderStatus,
+                             item.CashRate,
+                             item.PurchasingCost,
+                             item2.Name
+                         });
                     var query2 = query.OrderBy(obj => obj.OrderStatus).ThenByDescending(obj => obj.ID);
 
-                    var list = query.ToList();
+                    List<OrderModel> list = query.Select(obj => new OrderModel()
+                    {
+                        ID = obj.ID,
+                        UserID = obj.UserID,
+                        Name = obj.Name,
+                        PriceSum = obj.PriceSum,
+                        CreateDate = obj.CreateDate,
+                        IsBuy = obj.IsBuy,
+                        IsSent = obj.IsSent,
+                        CashRate = obj.CashRate,
+                        PurchasingCost = obj.PurchasingCost,
+                        Remarks = obj.Remarks,
+                        Amount = obj.Amount,
+                        ShippingFee = obj.ShippingFee,
+                        OrderStatus = obj.OrderStatus
+                    }).ToList();
                     return list;
                 }
             }

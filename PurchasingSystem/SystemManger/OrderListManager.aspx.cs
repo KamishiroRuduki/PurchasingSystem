@@ -44,7 +44,7 @@ namespace PurchasingSystem.SystemManger
             if (row.RowType == DataControlRowType.DataRow)
             {
                 Label lbl = row.FindControl("lblstatus") as Label;
-                var dr = row.DataItem as Order;
+                var dr = row.DataItem as OrderModel;
                 int orderStatus = dr.OrderStatus;
 
                 if (orderStatus == 0)

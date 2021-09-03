@@ -11,6 +11,8 @@ namespace PurchasingSystem.Auth
         public string ID { get; set; }
         public string Account { get; set; }
         public string Name { get; set; }
+
+        public int Level { get; set; }
         public Guid UserGuid
         {
             get
