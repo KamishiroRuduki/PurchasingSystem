@@ -295,6 +295,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BankJsonData\BankJsonData.csproj">
+      <Project>{2edb6323-0024-4b1b-97cb-4ea9bd3261d1}</Project>
+      <Name>BankJsonData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PurchasingSystem.Auth\PurchasingSystem.Auth.csproj">
       <Project>{D2AAB20F-38D9-45D6-A1CD-CBEF4AD0919D}</Project>
       <Name>PurchasingSystem.Auth</Name>

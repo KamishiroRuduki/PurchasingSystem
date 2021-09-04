@@ -78,6 +78,15 @@ namespace PurchasingSystem
         protected global::System.Web.UI.WebControls.DropDownList payType;
 
         /// <summary>
+        /// bankcodeDDList コントロール。
+        /// </summary>
+        /// <remarks>
+        /// 自動生成されたフィールド。
+        /// 変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList bankcodeDDList;
+
+        /// <summary>
         /// txtPaymentProfile コントロール。
         /// </summary>
         /// <remarks>

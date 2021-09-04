@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PurchasingSystem.DBSouce", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PurchasingSystem.Auth", "PurchasingSystem.Auth\PurchasingSystem.Auth.csproj", "{D2AAB20F-38D9-45D6-A1CD-CBEF4AD0919D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankJsonData", "BankJsonData\BankJsonData.csproj", "{2EDB6323-0024-4B1B-97CB-4EA9BD3261D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D2AAB20F-38D9-45D6-A1CD-CBEF4AD0919D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2AAB20F-38D9-45D6-A1CD-CBEF4AD0919D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2AAB20F-38D9-45D6-A1CD-CBEF4AD0919D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EDB6323-0024-4B1B-97CB-4EA9BD3261D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EDB6323-0024-4B1B-97CB-4EA9BD3261D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EDB6323-0024-4B1B-97CB-4EA9BD3261D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EDB6323-0024-4B1B-97CB-4EA9BD3261D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

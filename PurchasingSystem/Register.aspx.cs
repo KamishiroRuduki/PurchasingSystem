@@ -6,13 +6,17 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using PurchasingSystem.ORM.DBModels;
 using PurchasingSystem.DBSouce;
-
+using BankJsonData;
 namespace PurchasingSystem
 {
     public partial class Register : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //----------------抓銀行代號並放進DropDownList------------------------
+            var list = BankJsonData.BankJsonData.ReadData();
+            bankcodeDDList.DataSource = list;
+            bankcodeDDList.DataBind();
 
         }
 
@@ -43,6 +47,15 @@ namespace PurchasingSystem
                 this.ltMsg.Text = "此手機已經被使用過了";
                 return;
             }
+            string paymentProfile = string.Empty;
+            if (this.payType.SelectedValue == "1")
+            {
+                paymentProfile = bankcodeDDList.SelectedValue + " " + this.txtPaymentProfile.Text;
+            }
+            else
+            {
+                paymentProfile = this.txtPaymentProfile.Text;
+            }
             string PaymentTypeText = this.payType.SelectedValue;
             int PaymentType = Convert.ToInt32(PaymentTypeText);
             UserInfo newUser = new UserInfo()
@@ -55,7 +68,7 @@ namespace PurchasingSystem
             MobilePhone = this.txtPhone.Text,
             Email = this.txtMail.Text,
             Address = this.txtAddress.Text,
-            PaymentProfile = this.txtPaymentProfile.Text,
+            PaymentProfile = paymentProfile,
             PaymentType = PaymentType,
             CreateDate = DateTime.Now,
             BlackList = 0
@@ -116,6 +129,19 @@ namespace PurchasingSystem
                 return true;
             else
                 return false;
+        }
+
+        protected void payType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //------------------選到銀行帳號才顯示--------------------
+            if (this.payType.SelectedValue == "1")
+            {
+                bankcodeDDList.Visible = true;
+            }
+            else
+            {
+                bankcodeDDList.Visible = false;
+            }
         }
     }
 }

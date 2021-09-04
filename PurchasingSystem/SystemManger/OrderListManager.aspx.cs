@@ -77,5 +77,69 @@ namespace PurchasingSystem.SystemManger
                 }
             }
         }
+
+        protected void statusDDList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.statusDDList.SelectedValue == "0")
+            {
+                int status = Convert.ToInt32(this.statusDDList.SelectedValue);
+                var list = OrderManager.GETOrderInfoByManager(status);
+                if (list.Count > 0)
+                {
+                    this.GridView1.DataSource = list;
+                    this.GridView1.DataBind();
+                }
+            }
+            else if (this.statusDDList.SelectedValue == "1")
+            {
+                int status = Convert.ToInt32(this.statusDDList.SelectedValue);
+                var list = OrderManager.GETOrderInfoByManager(status);
+                if (list.Count > 0)
+                {
+                    this.GridView1.DataSource = list;
+                    this.GridView1.DataBind();
+                }
+            }
+            else if (this.statusDDList.SelectedValue == "2")
+            {
+                int status = Convert.ToInt32(this.statusDDList.SelectedValue);
+                var list = OrderManager.GETOrderInfoByManager(status);
+                if (list.Count > 0)
+                {
+                    this.GridView1.DataSource = list;
+                    this.GridView1.DataBind();
+                }
+            }
+            else if (this.statusDDList.SelectedValue == "3")
+            {
+                int status = Convert.ToInt32(this.statusDDList.SelectedValue);
+                var list = OrderManager.GETOrderInfoByManager(status);
+                if (list.Count > 0)
+                {
+                    this.GridView1.DataSource = list;
+                    this.GridView1.DataBind();
+                }
+            }
+            else if (this.statusDDList.SelectedValue == "-1")
+            {
+                int status = Convert.ToInt32(this.statusDDList.SelectedValue);
+                var list = OrderManager.GETOrderInfoByManager(status);
+                if (list.Count > 0)
+                {
+                    this.GridView1.DataSource = list;
+                    this.GridView1.DataBind();
+                }
+            }
+            else
+            {
+                var list = OrderManager.GETOrderInfoByManager();
+                if (list.Count > 0)
+                {
+                    this.GridView1.DataSource = list;
+                    this.GridView1.DataBind();
+                }
+            }
+
+        }
     }
 }

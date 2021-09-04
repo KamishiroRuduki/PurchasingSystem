@@ -175,6 +175,10 @@ namespace PurchasingSystem.DBSouce
             }
         }
         //-----------------------------------------------------以下是管理員使用的method-------------------------------------------------
+        /// <summary>
+        /// 抓除了不成立以外所有的訂單
+        /// </summary>
+        /// <returns></returns>
         public static List<OrderModel> GETOrderInfoByManager()
         {
             try
@@ -184,6 +188,64 @@ namespace PurchasingSystem.DBSouce
                     var query =
                         (from item in context.Orders
                          where item.UserID == item.UserID && item.OrderStatus >=0
+                         //   orderby item.OrderStatus
+                         join item2 in context.UserInfoes on item.UserID equals item2.UserID
+                         select new
+                         {
+                             item.ID,
+                             item.UserID,
+                             item.PriceSum,
+                             item.CreateDate,
+                             item.IsBuy,
+                             item.IsSent,
+                             item.Remarks,
+                             item.Amount,
+                             item.ShippingFee,
+                             item.OrderStatus,
+                             item.CashRate,
+                             item.PurchasingCost,
+                             item2.Name
+                         });
+                    var query2 = query.OrderBy(obj => obj.OrderStatus).ThenByDescending(obj => obj.ID);
+
+                    List<OrderModel> list = query.Select(obj => new OrderModel()
+                    {
+                        ID = obj.ID,
+                        UserID = obj.UserID,
+                        Name = obj.Name,
+                        PriceSum = obj.PriceSum,
+                        CreateDate = obj.CreateDate,
+                        IsBuy = obj.IsBuy,
+                        IsSent = obj.IsSent,
+                        CashRate = obj.CashRate,
+                        PurchasingCost = obj.PurchasingCost,
+                        Remarks = obj.Remarks,
+                        Amount = obj.Amount,
+                        ShippingFee = obj.ShippingFee,
+                        OrderStatus = obj.OrderStatus
+                    }).ToList();
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog(ex);
+                return null;
+            }
+        }
+        /// <summary>
+        /// 依OrderStatus的值抓訂單
+        /// </summary>
+        /// <returns></returns>
+        public static List<OrderModel> GETOrderInfoByManager(int status)
+        {
+            try
+            {
+                using (ContextModel context = new ContextModel())
+                {
+                    var query =
+                        (from item in context.Orders
+                         where item.OrderStatus == status 
                          //   orderby item.OrderStatus
                          join item2 in context.UserInfoes on item.UserID equals item2.UserID
                          select new

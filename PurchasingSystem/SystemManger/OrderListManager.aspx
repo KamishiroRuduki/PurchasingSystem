@@ -4,6 +4,14 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="entry-content">
+        查詢<asp:DropDownList ID="statusDDList" runat="server"  AutoPostBack="True" OnSelectedIndexChanged="statusDDList_SelectedIndexChanged">
+            <asp:ListItem Value="999">全部</asp:ListItem>
+            <asp:ListItem Value="0">未處理</asp:ListItem>
+            <asp:ListItem Value="1">未付款</asp:ListItem>
+            <asp:ListItem Value="2">處理中</asp:ListItem>
+            <asp:ListItem Value="3">已結案</asp:ListItem>
+            <asp:ListItem Value="-1">不成立</asp:ListItem>
+          </asp:DropDownList><br />
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" OnRowDataBound="OrderListView_RowDataBound" CellPadding="10">
             <Columns>
                     <asp:HyperLinkField  HeaderText="顧客姓名" DataTextField="Name" DataNavigateUrlFormatString="\SystemManger\UserList.aspx?ID={0}" DataNavigateUrlFields="UserID" />
