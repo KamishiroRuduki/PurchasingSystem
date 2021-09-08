@@ -24,6 +24,24 @@ namespace PurchasingSystem.SystemManger
         protected global::System.Web.UI.WebControls.GridView GridView1;
 
         /// <summary>
+        /// txtPrice コントロール。
+        /// </summary>
+        /// <remarks>
+        /// 自動生成されたフィールド。
+        /// 変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPrice;
+
+        /// <summary>
+        /// btnCalculation コントロール。
+        /// </summary>
+        /// <remarks>
+        /// 自動生成されたフィールド。
+        /// 変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCalculation;
+
+        /// <summary>
         /// GridView2 コントロール。
         /// </summary>
         /// <remarks>

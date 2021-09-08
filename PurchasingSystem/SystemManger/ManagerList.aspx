@@ -26,6 +26,7 @@
             </Columns>
 
         </asp:GridView>
+            <a href="/SystemManger/ManagerDetail.aspx">新增管理員</a>
             </div>
         <div>
             <h2>匯率、代購費變更</h2>

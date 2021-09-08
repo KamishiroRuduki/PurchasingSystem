@@ -12,15 +12,25 @@
     <script>
         $(function () {
             $("#divCalculation").hide();
+
             $("#addcommod").click(function () {
                 var htmltext =
-            `<br/>商品名:<input type="Text" ID="txtName1" name="txtName" />
+            `<div class="commoddiv"><br/>商品名:<input type="Text" ID="txtName1" name="txtName" />
             數量:<input type="number" name="txtQuantity" ID="txtQuantity1"  onkeyup="this.value=this.value.replace(/\D/g,'')"
-onafterpaste="this.value=this.value.replace(/\D/g,'')"  size="10" /><br/>
-            商品網址:<input type="Text" name ="txtURL" ID="txtURL1"/><br/>`;
+onafterpaste="this.value=this.value.replace(/\D/g,'')"  size="10" /><input type="button" value="X" class="removecommod" ><br/>
+            商品網址:<input type="Text" name ="txtURL" ID="txtURL1"/><br/></div>`;
                 $("#commoditys").append(htmltext);
 
             })
+
+            //$(".removecommod").on('click', function () {
+            //    $(this).parent('div').remove();
+
+            //})
+            $("#commoditys").on("click", ".removecommod", function (e) { 
+                e.preventDefault(); $(this).parent('div').remove(); 
+            })
+
             $("#btn1").click(function () {
                 $("#divCalculation").show(300);
             })
@@ -45,6 +55,7 @@ onafterpaste="this.value=this.value.replace(/\D/g,'')"  size="10" /><br/>
             商品網址:<asp:TextBox ID="txtURL" runat="server"></asp:TextBox><br/>-->
         </div>
         <button type="button" id="addcommod">新增商品</button>
+        
         <div>
             總價格:<asp:HiddenField ID="HiddenField1" runat="server" />
             <asp:TextBox  ID="txtPrice" runat="server" Enabled="False"></asp:TextBox>

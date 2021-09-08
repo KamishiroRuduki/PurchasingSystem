@@ -162,6 +162,31 @@ namespace PurchasingSystem.DBSouce
                 return false;
             }
         }
+        public static bool IsPaymentCreated(string paymentProfile)
+        {
+
+            try
+            {
+                using (ContextModel context = new ContextModel())
+                {
+                    var query =
+                        (from item in context.UserInfoes
+                         where item.PaymentProfile == paymentProfile
+                         select item);
+
+                    var list = query.FirstOrDefault();
+                    if (list is null)
+                        return true;
+                    else
+                        return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog(ex);
+                return false;
+            }
+        }
         //建立使用者
         public static void CreateUser(UserInfo user)
         {

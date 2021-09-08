@@ -32,6 +32,7 @@ namespace PurchasingSystem
             string accText = this.txtAccount.Text;
             string phoneText = this.txtPhone.Text;
             string mailText = this.txtMail.Text;
+            
             if (!UserInfoManager.IsAccountCreated(accText))
             {
                 this.ltMsg.Text = "此帳號已經被使用過了";
@@ -55,6 +56,11 @@ namespace PurchasingSystem
             else
             {
                 paymentProfile = this.txtPaymentProfile.Text;
+            }
+            if (!UserInfoManager.IsPaymentCreated(paymentProfile))
+            {
+                this.ltMsg.Text = "此卡號或銀行帳號已經被使用過了";
+                return;
             }
             string PaymentTypeText = this.payType.SelectedValue;
             int PaymentType = Convert.ToInt32(PaymentTypeText);
@@ -94,6 +100,10 @@ namespace PurchasingSystem
             {
                 msgList.Add("請輸入密碼");
             }
+            if (this.txtPassword.Text.Length < 8 || this.txtPassword.Text.Length > 16)
+            {
+                msgList.Add("密碼長度不能小於8或大於16");
+            }
             if (string.IsNullOrWhiteSpace(this.txtPhone.Text))
             {
                 msgList.Add("請輸入手機號碼");
@@ -122,8 +132,12 @@ namespace PurchasingSystem
             {
                 msgList.Add("請輸入卡號或銀行帳號");
             }
+            if (this.txtPaymentProfile.Text.Length < 12 )
+            {
+                msgList.Add("卡號或銀行帳號有誤");
+            }
 
-            
+
             errorMsgList = msgList;
             if (msgList.Count == 0)
                 return true;

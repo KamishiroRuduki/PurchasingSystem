@@ -18,6 +18,10 @@
                         table += '<tr> <th>類型</th> <th>商品名</th> <th>數量</th> <th>含稅日幣</th> </tr>';
                         for (var i = 0; i < result.length; i++) {
                             var obj = result[i];
+                            if (obj.Type == null)
+                                obj.Type = "";
+                            if (obj.Price == null)
+                                obj.Price = "";
                             var htmlText =
                                 `<tr>
                                 <td>${obj.Type}</td>

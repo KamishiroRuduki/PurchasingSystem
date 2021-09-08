@@ -44,7 +44,8 @@ namespace PurchasingSystem.SystemManger
                     }
                 var costdata = ManagerInfoManager.GETCostData();
                 this.txtCashRate.Text = costdata[0].Value.ToString();
-                this.txtPurchasingCost.Text = costdata[1].Value.ToString();
+                var purchasingcostStr= costdata[1].Value.ToString();
+                this.txtPurchasingCost.Text = (Convert.ToDouble(purchasingcostStr)).ToString();
 
             }
             }

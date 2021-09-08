@@ -9,7 +9,6 @@ namespace PurchasingSystem.ORM.DBModels
     [Table("Commodity")]
     public partial class Commodity
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
 
         public int OrderID { get; set; }

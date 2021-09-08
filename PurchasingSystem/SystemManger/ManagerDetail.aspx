@@ -13,8 +13,6 @@
             <asp:ListItem Value="0">客服人員</asp:ListItem>
             <asp:ListItem Value="1">一般管理員</asp:ListItem>
             <asp:ListItem Value="2">高級管理員</asp:ListItem>
-            <asp:ListItem Value="3">高級管理員</asp:ListItem>
-            <asp:ListItem Value="4">高級管理員</asp:ListItem>
         </asp:DropDownList><br />
         <div>
             <asp:Button ID="btnSave" runat="server" Text="儲存變更" OnClick="btnSave_Click" />&nbsp

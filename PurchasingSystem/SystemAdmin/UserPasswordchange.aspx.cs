@@ -14,19 +14,19 @@ namespace PurchasingSystem.SystemAdmin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!AuthManger.IsLogined())
-            {
-                Response.Redirect("/Login.aspx");
-                return;
-            }
-            var cUser = AuthManger.GetCurrentUser();
-            if (cUser == null)
-            {
-                this.Session["UserLoginInfo"] = null;
-                Response.Redirect("/Login.aspx");
-                return;
+            //if (!AuthManger.IsLogined())
+            //{
+            //    Response.Redirect("/Login.aspx");
+            //    return;
+            //}
+            //var cUser = AuthManger.GetCurrentUser();
+            //if (cUser == null)
+            //{
+            //    this.Session["UserLoginInfo"] = null;
+            //    Response.Redirect("/Login.aspx");
+            //    return;
 
-            }
+            //}
         }
 
         protected void btnSave_Click(object sender, EventArgs e)

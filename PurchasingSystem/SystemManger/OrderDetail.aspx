@@ -30,7 +30,7 @@
                     <asp:BoundField DataField="Quantity" HeaderText="數量" />
                     <asp:TemplateField HeaderText="購買狀況">
                         <ItemTemplate>
-                            <asp:DropDownList ID="IsBuyDDList" runat="server" SelectedValue='<%# Eval("IsBuy") %>'>
+                            <asp:DropDownList ID="IsBuyDDList" runat="server" SelectedValue='<%# Eval("IsBuy") %>' OnSelectedIndexChanged="IsBuyDDList_SelectedIndexChanged" AutoPostBack="True">
                                 <asp:ListItem Value="0">尚未購買</asp:ListItem>
                                 <asp:ListItem Value="1">已購買</asp:ListItem>
                             </asp:DropDownList>
@@ -39,11 +39,19 @@
                 </Columns>
             </asp:GridView>
         </div>
+            <div>
+            總價格:<asp:TextBox  ID="txtPrice" runat="server" Enabled="False"></asp:TextBox>
+                <asp:Button ID="btnCalculation" runat="server" Text="價格試算" OnClick="btnCalculation_Click" />
+        </div>
         <div>
             <h3>訂單資料修改</h3>
-            <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="6">
+            <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="6" OnRowDataBound="GridView2_RowDataBound">
                 <Columns>
-                    <asp:BoundField DataField="PriceSum" HeaderText="總價格" />
+                       <asp:TemplateField HeaderText="總價格">
+                        <ItemTemplate>
+                            <asp:TextBox ID="txtPrice" runat="server" Text='<%# Bind("PriceSum") %>' Width="150px" Enabled="false" ></asp:TextBox>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="付款金額">
                         <ItemTemplate>
                             <asp:TextBox ID="txtAmount" runat="server" Text='<%# Bind("Amount") %>' Width="150px" onkeyup="this.value=this.value.replace(/\D/g,'')"
@@ -58,10 +66,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="購買狀況">
                         <ItemTemplate>
-                            <asp:DropDownList ID="IsBuyOrderDDList" runat="server" SelectedValue='<%# Eval("IsBuy") %>'>
-                                <asp:ListItem Value="0">尚未購買</asp:ListItem>
-                                <asp:ListItem Value="1">已購買</asp:ListItem>
-                            </asp:DropDownList>
+                            <asp:Literal ID="litOrderIsbuy" runat="server" ></asp:Literal>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="寄送狀況">
