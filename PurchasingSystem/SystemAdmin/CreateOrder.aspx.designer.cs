@@ -60,6 +60,15 @@ namespace PurchasingSystem.SystemAdmin
         protected global::System.Web.UI.WebControls.TextBox txtPrice;
 
         /// <summary>
+        /// ltlCalcu コントロール。
+        /// </summary>
+        /// <remarks>
+        /// 自動生成されたフィールド。
+        /// 変更するには、フィールドの宣言をデザイナー ファイルから分離コード ファイルに移動します。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltlCalcu;
+
+        /// <summary>
         /// txtRemarks コントロール。
         /// </summary>
         /// <remarks>

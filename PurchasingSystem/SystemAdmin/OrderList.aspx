@@ -51,7 +51,7 @@
     <div class="entry-content">
         <div id="ordercontent"></div>
 
-        <asp:GridView ID="OrderListView" runat="server" AutoGenerateColumns="False" OnRowDataBound="OrderListView_RowDataBound" CellPadding="20" OnSelectedIndexChanged="OrderListView_SelectedIndexChanged" OnRowCommand="OrderListView_RowCommand" OnRowCancelingEdit="OrderListView_RowCancelingEdit" OnRowDeleting="OrderListView_RowDeleting" OnRowEditing="OrderListView_RowEditing">
+        <asp:GridView ID="OrderListView" runat="server" AutoGenerateColumns="False" class="table table-bordered table-condensed table-responsive table-hover"  OnRowDataBound="OrderListView_RowDataBound" CellPadding="20" OnSelectedIndexChanged="OrderListView_SelectedIndexChanged" OnRowCommand="OrderListView_RowCommand" OnRowCancelingEdit="OrderListView_RowCancelingEdit" OnRowDeleting="OrderListView_RowDeleting" OnRowEditing="OrderListView_RowEditing">
             <Columns>
                 <asp:BoundField DataField="CreateDate" HeaderText="下單日期" />
 

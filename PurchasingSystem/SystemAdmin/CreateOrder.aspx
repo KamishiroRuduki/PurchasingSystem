@@ -27,8 +27,8 @@ onafterpaste="this.value=this.value.replace(/\D/g,'')"  size="10" /><input type=
             //    $(this).parent('div').remove();
 
             //})
-            $("#commoditys").on("click", ".removecommod", function (e) { 
-                e.preventDefault(); $(this).parent('div').remove(); 
+            $("#commoditys").on("click", ".removecommod", function () { 
+                $(this).parent('div').remove(); 
             })
 
             $("#btn1").click(function () {
@@ -48,7 +48,7 @@ onafterpaste="this.value=this.value.replace(/\D/g,'')"  size="10" /><input type=
         });
 
     </script>
-    <div class="entry-content">
+    <div class="entry-content" style="padding-left: 300px;" >
         <div id="commoditys">
             <!--   商品名:<asp:TextBox ID="txtName" runat="server"></asp:TextBox>
             數量:<asp:TextBox ID="txtQuantity" TextMode="Number" runat="server" Width="50px"></asp:TextBox><br/>
@@ -65,6 +65,7 @@ onafterpaste="this.value=this.value.replace(/\D/g,'')"  size="10" /><input type=
             全部商品價格加總後金額(日幣)<input type="number" id="sum" onkeyup="this.value=this.value.replace(/\D/g,'')"
                 onafterpaste="this.value=this.value.replace(/\D/g,'')" />
             <button type="button" id="btn2">確定</button><br />
+            <asp:Literal ID="ltlCalcu" runat="server"></asp:Literal>
         </div>
          備註:<asp:TextBox ID="txtRemarks" runat="server" Height="70px" Width="420px"></asp:TextBox><br />
         <asp:Button ID="btnsave" runat="server" Text="送出" OnClick="btnsave_Click" /><br />

@@ -16,7 +16,7 @@ namespace PurchasingSystem.SystemAdmin
         {
             if (!AuthManger.IsLogined())
             {
-                Response.Redirect("/login.aspx");
+                Response.Redirect("/Login.aspx");
                 return;
             }
             var cUser = AuthManger.GetCurrentUser();
@@ -31,6 +31,7 @@ namespace PurchasingSystem.SystemAdmin
             this.HF2.Value = costDataList[0].Value.ToString();
             var integer = (int)costDataList[1].Value;
             this.HF3.Value = integer.ToString();
+            this.ltlCalcu.Text = $"計算公式，商品金額加總*匯率:{costDataList[0].Value.ToString()}+代購費:{integer.ToString()}";
              
 
         }
@@ -123,6 +124,7 @@ namespace PurchasingSystem.SystemAdmin
                 CommodityManager.CreateCommodity(newCommodity);
 
             }
+            Response.Write("<Script language='JavaScript'>alert('訂單已成功送出！'); location.href='/UserInfo.aspx'; </Script>");
         }
         /// <summary>
         /// 檢查是否有未填寫的

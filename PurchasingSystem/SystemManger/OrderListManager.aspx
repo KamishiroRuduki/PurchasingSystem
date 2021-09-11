@@ -12,7 +12,7 @@
             <asp:ListItem Value="3">已結案</asp:ListItem>
             <asp:ListItem Value="-1">不成立</asp:ListItem>
           </asp:DropDownList><br />
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" OnRowDataBound="OrderListView_RowDataBound" CellPadding="10">
+        <asp:GridView ID="GridView1" runat="server" class="table table-bordered table-condensed table-responsive table-hover" AutoGenerateColumns="False" OnRowDataBound="OrderListView_RowDataBound" CellPadding="10">
             <Columns>
                     <asp:HyperLinkField  HeaderText="顧客姓名" DataTextField="Name" DataNavigateUrlFormatString="\SystemManger\UserList.aspx?ID={0}" DataNavigateUrlFields="UserID" />
                 <asp:TemplateField HeaderText="訂單狀態">

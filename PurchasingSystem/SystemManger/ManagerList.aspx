@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="entry-content">
         <div>
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" OnRowDataBound="OrderListView_RowDataBound" CellPadding="10">
+        <asp:GridView ID="GridView1" runat="server" class="table table-bordered table-condensed table-responsive table-hover" AutoGenerateColumns="False" OnRowDataBound="OrderListView_RowDataBound" CellPadding="10">
             <Columns>
                 <asp:BoundField DataField="Name" HeaderText="姓名" />
 
