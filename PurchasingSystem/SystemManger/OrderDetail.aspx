@@ -33,6 +33,7 @@
                             <asp:DropDownList ID="IsBuyDDList" runat="server" SelectedValue='<%# Eval("IsBuy") %>' OnSelectedIndexChanged="IsBuyDDList_SelectedIndexChanged" AutoPostBack="True">
                                 <asp:ListItem Value="0">尚未購買</asp:ListItem>
                                 <asp:ListItem Value="1">已購買</asp:ListItem>
+                                <asp:ListItem Value="-1">缺貨</asp:ListItem>
                             </asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>

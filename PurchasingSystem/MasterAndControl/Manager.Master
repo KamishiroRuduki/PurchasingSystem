@@ -12,12 +12,13 @@
     <script src="../Scripts/jQuery-min-3.6.0.js"></script>
     <link rel="stylesheet" href="../Scripts/style.css">
     <link rel="stylesheet" href="../Scripts/css/bootstrap.css">
+    <link rel="stylesheet" href="../Scripts/index.css">
     <script src="../Scripts/js/bootstrap.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
         <div class="container">
-            <div>
+            <div class="jumbotron text-center">
                 <div class="d-inline-block">
                     <h1>二次元商品代購系統-管理員頁面</h1>
                 </div>
@@ -25,6 +26,9 @@
                     <%--<a href="Login.aspx">註冊/登入</a>--%>
                     <asp:Literal ID="litLogin" runat="server"></asp:Literal>
                     <asp:Button ID="btnLogout" runat="server" Text="登出" Visible="False" OnClick="btnLogout_Click" />
+                </div>
+                <div style="background-color:darkgrey">
+                    <asp:Literal ID="litManagerInfo" runat="server" ></asp:Literal>
                 </div>
             </div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">

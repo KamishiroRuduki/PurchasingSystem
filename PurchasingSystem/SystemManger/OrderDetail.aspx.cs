@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using PurchasingSystem.ORM.DBModels;
+using System.Net.Mail;
 
 namespace PurchasingSystem.SystemManger
 {
@@ -44,17 +45,34 @@ namespace PurchasingSystem.SystemManger
                     {
                         var list = CommodityManager.GETCommodityInfo(id);
                         var order = OrderManager.GETOrderInfoToList(id);
-                        if (list.Count > 0)
-                        {
-                            this.GridView1.DataSource = list;
-                            this.GridView1.DataBind();
-                        }
+                        
                         if (order != null)
                         {
+                            if(order[0].OrderStatus == 3 && cUser.Level < 2)
+                            {
+                                Response.Redirect("/SystemManger/OrderListManager.aspx");
+                                return;
+                            }
 
                             this.GridView2.DataSource = order;
                             this.GridView2.DataBind();
                         }
+                        if (list.Count > 0)
+                        {
+                            this.GridView1.DataSource = list;
+                            this.GridView1.DataBind();
+                            for ( int i =0; i< list.Count; i++)
+                            {
+                                var isBuy = (DropDownList)this.GridView1.Rows[i].FindControl("IsBuyDDList");                               
+                                if (isBuy.SelectedValue == "-1")
+                                {
+                                    var txtprice = (TextBox)this.GridView2.Rows[0].FindControl("txtPrice");
+                                    txtprice.Enabled = true;
+                                }
+                            }
+                        }
+
+                       
                     }
                 }
                 else
@@ -94,10 +112,10 @@ namespace PurchasingSystem.SystemManger
                 var isSentOrder = (DropDownList)this.GridView2.Rows[0].FindControl("IsSentOrderDDList");
                 var orderStatus = (DropDownList)this.GridView2.Rows[0].FindControl("OrderStatusDDList");
                 int amount = 0, shippingFee = 0;
-                if(!string.IsNullOrWhiteSpace(txtamount.Text) && txtamount.Text != "0" )//有付款後才檢查
+                var priceText = Convert.ToDecimal(txtprice.Text);
+                if (!string.IsNullOrWhiteSpace(txtamount.Text) && txtamount.Text != "0" )//有付款後才檢查
                 {
-                    var amountTest = Convert.ToDecimal(txtamount.Text);
-                    var priceText = Convert.ToDecimal(txtprice.Text);
+                    var amountTest = Convert.ToDecimal(txtamount.Text);                  
                     priceText = Decimal.Multiply(priceText, (decimal)0.9);
                     if (priceText> amountTest)
                     {
@@ -115,6 +133,7 @@ namespace PurchasingSystem.SystemManger
                 }
                 Order orderUpdate = new Order()
                 {
+                    PriceSum = priceText,
                     ID = Convert.ToInt32(this.Request.QueryString["ID"].ToString()),
                     Amount = amount,
                     ShippingFee = shippingFee,
@@ -123,13 +142,21 @@ namespace PurchasingSystem.SystemManger
                     IsSent = Convert.ToInt32(isSentOrder.SelectedValue),
                     OrderStatus = Convert.ToInt32(orderStatus.SelectedValue)
                 };
+                int emailid = Convert.ToInt32(this.Request.QueryString["ID"].ToString());
+                var order = OrderManager.GETOrderInfo(emailid);
+                var emailstr = UserInfoManager.GETUserInfoEmail(order.UserID);
+                string body = Emailbody();
+                if (body != null)
+                    sendGmail(emailstr, body);
 
                 OrderManager.UpdateOrderByManager(orderUpdate);
 
             }
+            
+                
             Response.Redirect("/SystemManger/OrderListManager.aspx");
             return;
-
+            
         }
 
         protected void btnCancelCommodity_Click(object sender, EventArgs e)
@@ -175,13 +202,20 @@ namespace PurchasingSystem.SystemManger
                 {
                    
                     var isBuy = (DropDownList)this.GridView1.Rows[i].FindControl("IsBuyDDList");
-                    if (isBuy.SelectedValue == "1")
+                    if (isBuy.SelectedValue == "1" || isBuy.SelectedValue == "-1")
                         j--;
+                    if(isBuy.SelectedValue == "-1")
+                    {
+                        var txtprice = (TextBox)this.GridView2.Rows[0].FindControl("txtPrice");
+                        txtprice.Enabled = true;
+                    }
+                        
 
                 }
                 var isBuyOrder = (Literal)this.GridView2.Rows[0].FindControl("litOrderIsbuy");
                 if (j == 0)                 
                     isBuyOrder.Text = "已購買";
+          
                 else
                     isBuyOrder.Text = "尚未購買";
 
@@ -229,7 +263,11 @@ namespace PurchasingSystem.SystemManger
 
 
         }
-
+        /// <summary>
+        /// 商品金額加總計算後是否與使用者田的金額相符
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnCalculation_Click(object sender, EventArgs e)
         {
             var costDataList = OrderManager.GetCostData();
@@ -262,6 +300,79 @@ namespace PurchasingSystem.SystemManger
 
             }
 
+        }
+        public void sendGmail( string emailstr, string body)
+        {
+            MailMessage mail = new MailMessage();
+            //前面是發信email後面是顯示的名稱
+            mail.From = new MailAddress("imoutonotamenara@gmail.com", "二次元代購系統通知");
+
+            //收信者email
+            mail.To.Add(emailstr);
+
+            ////設定優先權
+            //mail.Priority = MailPriority.Normal;
+
+            //標題
+            mail.Subject = "本系統為自動發送，請勿回復";
+
+            //內容
+            mail.Body = body;
+
+            //內容使用html
+            mail.IsBodyHtml = true;
+
+            //設定gmail的smtp (這是google的)
+            SmtpClient MySmtp = new SmtpClient("smtp.gmail.com", 587);
+
+            //您在gmail的帳號密碼
+            MySmtp.Credentials = new System.Net.NetworkCredential("imoutonotamenara", "ImoutoSaikou");
+
+            //開啟ssl
+            MySmtp.EnableSsl = true;
+
+            //發送郵件
+            MySmtp.Send(mail);
+
+            //放掉宣告出來的MySmtp
+            MySmtp = null;
+
+            //放掉宣告出來的mail
+            mail.Dispose();
+        }
+
+        private string Emailbody()
+        {
+            var strID = this.Request.QueryString["ID"].ToString();
+            int id;
+            string body = null;
+            if (int.TryParse(strID, out id))
+            {
+                var order = OrderManager.GETOrderInfo(id);
+                var orderStatus = (DropDownList)this.GridView2.Rows[0].FindControl("OrderStatusDDList");
+                int status = Convert.ToInt32(orderStatus.SelectedValue);
+                if (order.OrderStatus <= status && order.OrderStatus != -1 && status != -1)
+                {
+                    if(status == 1 && order.OrderStatus < status)
+                    {
+                        body = "感謝使用本系統作代購服務，已經確認貴客的訂單，請盡快付款";
+                    }
+                    else if (status == 2 && order.IsBuy == 0 && OrderIsBuyValue() == 1)
+                    {
+                        body = "感謝使用本系統作代購服務，委託代購的商品已購買，商品到台後會另做通知";
+                    }
+                    else if (status == 2 && order.OrderStatus < status)
+                    {
+                        body = "感謝使用本系統作代購服務，已經確認貴客的款項，會盡快處理您的訂單";
+                    }
+                }
+                if(status == -1)
+                {
+
+                }
+
+            }
+            return body;
         }
     }
 }

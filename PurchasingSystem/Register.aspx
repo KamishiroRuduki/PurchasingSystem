@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="entry-content">
+    <div class="entry-content" style="padding-left: 150px;">
         帳號:<asp:TextBox ID="txtAccount" runat="server" Width="300px"></asp:TextBox><br />
         密碼:<asp:TextBox ID="txtPassword" TextMode="Password" runat="server" Width="300px"></asp:TextBox><br />
         姓名:<asp:TextBox ID="txtName" runat="server"></asp:TextBox><br />
@@ -17,7 +17,8 @@
         <asp:DropDownList ID="bankcodeDDList" runat="server" Visible ="false"></asp:DropDownList><br />
         卡號/銀行帳號<asp:TextBox ID="txtPaymentProfile" runat="server" Width="300px"></asp:TextBox><br />
         <div>
-            <asp:Button ID="btnSave" runat="server" Text="建立使用者" OnClick="btnSave_Click" /><br/>
+            <asp:Button ID="btnSave" runat="server" Text="建立使用者" OnClick="btnSave_Click" />
+            <asp:Button ID="btncancel" runat="server" Text="取消" OnClick="btncancel_Click" /><br/>
             <asp:Literal ID="ltMsg" runat="server"></asp:Literal>
         </div>
     </div>

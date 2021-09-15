@@ -81,7 +81,7 @@ namespace PurchasingSystem
 
             };
             UserInfoManager.CreateUser(newUser);
-            Response.Redirect("Default1.aspx");
+            Response.Write("<Script language='JavaScript'>alert('帳號註冊成功，請從登入頁面登入'); location.href='Login.aspx'; </Script>");
         }
 
         private bool CheckInput(out List<string> errorMsgList)
@@ -156,6 +156,11 @@ namespace PurchasingSystem
             {
                 bankcodeDDList.Visible = false;
             }
+        }
+
+        protected void btncancel_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Login.aspx");
         }
     }
 }

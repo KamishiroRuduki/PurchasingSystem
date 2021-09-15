@@ -12,7 +12,8 @@ namespace PurchasingSystem.MasterAndControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
+            this.litManagerInfo.Text = "<a href='/SystemManger/ManagerInfo.aspx'>管理員首頁</a>";
             if (AuthManger.ManagerIsLogined())
             {
                 this.litLogin.Visible = false;
@@ -25,5 +26,6 @@ namespace PurchasingSystem.MasterAndControl
             AuthManger.ManagerLogout();
             Response.Redirect("/SystemManger/Login.aspx");
         }
+
     }
 }

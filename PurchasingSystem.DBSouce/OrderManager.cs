@@ -305,6 +305,7 @@ namespace PurchasingSystem.DBSouce
                     var list = query.FirstOrDefault();
                     if (list != null)
                     {
+                        list.PriceSum = order.PriceSum;
                         list.IsBuy = order.IsBuy;
                         list.IsSent = order.IsSent;
                         list.Amount = order.Amount;

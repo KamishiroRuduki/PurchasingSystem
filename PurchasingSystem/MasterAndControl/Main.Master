@@ -29,12 +29,12 @@
             </div>
             <div class="row">
 
-                <table class="table">
+                <table class="table text-center">
                     <thead>
                         <tr>
                             <th><a class="nav-link active" aria-current="page" href="/SystemAdmin/UserInfo.aspx">進入會員頁面</a></th>
                             <th><a class="nav-link active" aria-current="page" href="/default.aspx">首頁</a></th>
-                            <th><a class="nav-link active" aria-current="page" href="http://azarashi-soft.nexton-net.jp/top.html">未設定</a></th>
+                            <th><a class="nav-link active" aria-current="page" href="/Link.aspx">網路通販連結</a></th>
                         </tr>
                     </thead>
                 </table>

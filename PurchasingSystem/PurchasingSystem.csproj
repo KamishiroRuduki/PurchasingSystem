@@ -79,6 +79,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="image\akisof_logo.png" />
+    <Content Include="image\logo-surugaya.png" />
+    <Content Include="image\logo-tora.png" />
+    <Content Include="image\logo.jpg" />
+    <Content Include="image\logomelon.png" />
+    <Content Include="image\logo_getchu_adult.gif" />
+    <Content Include="Link.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Scripts\css\bootstrap-grid.css" />
     <Content Include="Scripts\css\bootstrap-grid.min.css" />
@@ -126,6 +133,13 @@
     </Compile>
     <Compile Include="Handlers\OrderListHandler.ashx.cs">
       <DependentUpon>OrderListHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Link.aspx.cs">
+      <DependentUpon>Link.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Link.aspx.designer.cs">
+      <DependentUpon>Link.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterAndControl\Main.Master.cs">
       <DependentUpon>Main.Master</DependentUpon>

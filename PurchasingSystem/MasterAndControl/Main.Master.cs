@@ -24,7 +24,7 @@ namespace PurchasingSystem.MasterAndControl
         protected void btnLogout_Click(object sender, EventArgs e)
         {
             AuthManger.Logout();
-            Response.Redirect("/Default1.aspx");
+            Response.Redirect("/default.aspx");
         }
     }
 }

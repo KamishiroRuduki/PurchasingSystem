@@ -51,7 +51,31 @@ namespace PurchasingSystem.DBSouce
                 return null;
             }
         }
-        public static List<UserInfo> GETUserInfoToList()
+        public static string GETUserInfoEmail(Guid userid)
+        {
+            try
+            {
+                using (ContextModel context = new ContextModel())
+                {
+                    var query =
+                        (from item in context.UserInfoes
+                         where item.UserID == userid
+                         select item);
+
+                    var list = query.FirstOrDefault();
+                    if (list != null)
+                        return list.Email;
+                    else
+                        return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog(ex);
+                return null;
+            }
+        }
+            public static List<UserInfo> GETUserInfoToList()
         {
             try
             {
