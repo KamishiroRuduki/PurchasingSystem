@@ -116,8 +116,8 @@ namespace PurchasingSystem.SystemManger
                 if (!string.IsNullOrWhiteSpace(txtamount.Text) && txtamount.Text != "0" )//有付款後才檢查
                 {
                     var amountTest = Convert.ToDecimal(txtamount.Text);                  
-                    priceText = Decimal.Multiply(priceText, (decimal)0.9);
-                    if (priceText> amountTest)
+                    var pricetxt = Decimal.Multiply(priceText, (decimal)0.9);
+                    if (pricetxt > amountTest)
                     {
                         Response.Write("<Script language='JavaScript'>alert('付款金額不正確');  </Script>");
                         return;

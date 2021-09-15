@@ -104,7 +104,7 @@ namespace PurchasingSystem.SystemManger
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             var cUser = AuthManger.GetCurrentManager();
-            if (cUser.Level > 2)
+            if (cUser.Level >= 2)
             {
 
 

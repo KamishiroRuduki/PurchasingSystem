@@ -20,7 +20,7 @@
                     <asp:BoundField DataField="PaymentProfile" HeaderText="付款資料" />
                     <asp:TemplateField HeaderText="加入黑名單">
                         <ItemTemplate>
-                            <asp:Button ID="btnBlackList" runat="server" Text="Button" OnClick="btnBlackList_Click" OnClientClick="javascript:return confirm('確定將此使用者加入黑名單?？');" Visible="false" CommandName="BlackList"  CommandArgument='<%# Eval("Account") %>'/>
+                            <asp:Button ID="btnBlackList" runat="server" Text="Button" OnClick="btnBlackList_Click" Visible="false" CommandName="BlackList" OnClientClick="javascript:return confirm('確定將此使用者加入黑名單?？');"   CommandArgument='<%# Eval("Account") %>'/>
                         </ItemTemplate>
                     </asp:TemplateField>
 
