@@ -10,16 +10,19 @@ using System.Web.UI.WebControls;
 
 namespace PurchasingSystem.SystemManger
 {
+    /// <summary>
+    /// 管理員清單
+    /// </summary>
     public partial class ManagerList : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!AuthManger.ManagerIsLogined())
+            if (!AuthManger.ManagerIsLogined())//檢查登入
             {
                 Response.Redirect("/SystemManger/Login.aspx");
                 return;
             }
-            var cUser = AuthManger.GetCurrentManager();
+            var cUser = AuthManger.GetCurrentManager();//讀取該管理員資訊
             if (cUser == null)
             {
                 this.Session["ManagerLoginInfo"] = null;
@@ -27,7 +30,7 @@ namespace PurchasingSystem.SystemManger
                 return;
 
             }
-            if (cUser.Level < 2)
+            if (cUser.Level < 2)//高階管理員以上才能進此頁面
             {
                 Response.Redirect("/SystemManger/ManagerInfo.aspx");
                 return;
@@ -36,12 +39,14 @@ namespace PurchasingSystem.SystemManger
             if (!IsPostBack)
             {
                
+                    //建立管理員清單
                     var list = ManagerInfoManager.GETManagerInfoToList();
                     if (list.Count > 0)
                     {
                         this.GridView1.DataSource = list;
                         this.GridView1.DataBind();
                     }
+                    //額外款項資訊(匯率、代購費...等)
                 var costdata = ManagerInfoManager.GETCostData();
                 this.txtCashRate.Text = costdata[0].Value.ToString();
                 var purchasingcostStr= costdata[1].Value.ToString();
@@ -52,6 +57,7 @@ namespace PurchasingSystem.SystemManger
 
         protected void OrderListView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //變更權限項顯示的文字
             var row = e.Row;
             if (row.RowType == DataControlRowType.DataRow)
             {
@@ -80,7 +86,8 @@ namespace PurchasingSystem.SystemManger
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if( !string.IsNullOrWhiteSpace(txtCashRate.Text) && !string.IsNullOrWhiteSpace(txtPurchasingCost.Text))
+            //儲存新的額外款項資訊(匯率、代購費...等)
+            if ( !string.IsNullOrWhiteSpace(txtCashRate.Text) && !string.IsNullOrWhiteSpace(txtPurchasingCost.Text))
             {
                 decimal cashrate = 0;
                 if (Decimal.TryParse(txtCashRate.Text, out cashrate))
@@ -97,7 +104,7 @@ namespace PurchasingSystem.SystemManger
 
         }
 
-        protected void btnCancel_Click(object sender, EventArgs e)
+        protected void btnCancel_Click(object sender, EventArgs e)//取消按鈕
         {
             Response.Redirect("/SystemManger/ManagerList.aspx");
         }

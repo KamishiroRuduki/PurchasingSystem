@@ -8,16 +8,19 @@ using System.Web.UI.WebControls;
 
 namespace PurchasingSystem.SystemManger
 {
+    /// <summary>
+    /// 管理員首頁
+    /// </summary>
     public partial class ManagerInfo : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!AuthManger.ManagerIsLogined())
+            if (!AuthManger.ManagerIsLogined())//檢查登入
             {
                 Response.Redirect("/SystemManger/Login.aspx");
                 return;
             }
-            var cUser = AuthManger.GetCurrentManager();
+            var cUser = AuthManger.GetCurrentManager();//讀取該管理員資訊
             if (cUser == null)
             {
                 this.Session["ManagerLoginInfo"] = null;
@@ -26,9 +29,9 @@ namespace PurchasingSystem.SystemManger
 
             }
             this.litManagerList.Text = "<a href='/SystemManger/ManagerList.aspx'>管理員清單</a>";
-            if (cUser.Level >= 2)
+            if (cUser.Level >= 2)//高階管理員才能看到管理員清單
                 this.litManagerList.Visible = true;
-
+            //管理員的名字跟等級
             this.lblName.Text = "姓名:" + cUser.Name;
             this.lblLevel.Text = "管理員等級:" + LevelText(cUser.Level.ToString());
         }

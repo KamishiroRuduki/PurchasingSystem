@@ -36,6 +36,11 @@ namespace PurchasingSystem.DBSouce
                 return null;
             }
         }
+        /// <summary>
+        /// 依訂單ID讀取該訂單資訊
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <returns></returns>
         public static Order GETOrderInfo(int orderID)
         {
             try
@@ -59,7 +64,7 @@ namespace PurchasingSystem.DBSouce
             }
         }
         /// <summary>
-        /// 取得該使用者的所有訂單
+        /// 依訂單ID讀取該訂單資訊並回傳成LIST
         /// </summary>
         /// <param name="userID"></param>
         /// <returns></returns>
@@ -85,6 +90,11 @@ namespace PurchasingSystem.DBSouce
                 return null;
             }
         }
+        /// <summary>
+        /// 取得該使用者的所有訂單資訊
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
         public static List<Order> GETAllOrderInfo(Guid userID)
         {
             try
@@ -127,6 +137,10 @@ namespace PurchasingSystem.DBSouce
 
             }
         }
+        /// <summary>
+        /// 取得額外款項(匯率、代購費...等)的資訊
+        /// </summary>
+        /// <returns></returns>
         public static List<CostData> GetCostData()
         {
             try
@@ -148,7 +162,11 @@ namespace PurchasingSystem.DBSouce
 
             }
         }
-
+        /// <summary>
+        /// 更新訂單資料(使用者取消訂單用)
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="status"></param>
         public static void UpdateOrderStatus(int ID, int status)
         {
             try
@@ -291,6 +309,10 @@ namespace PurchasingSystem.DBSouce
                 return null;
             }
         }
+        /// <summary>
+        /// 更新訂單資料
+        /// </summary>
+        /// <param name="order"></param>
         public static void UpdateOrderByManager(Order order)
         {
             try

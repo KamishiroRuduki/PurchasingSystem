@@ -10,6 +10,9 @@ using PurchasingSystem.ORM.DBModels;
 
 namespace PurchasingSystem.SystemAdmin
 {
+    /// <summary>
+    /// 使用者資訊變更
+    /// </summary>
     public partial class UserDetail : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)

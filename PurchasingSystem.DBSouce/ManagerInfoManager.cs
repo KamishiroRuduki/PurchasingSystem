@@ -9,6 +9,11 @@ namespace PurchasingSystem.DBSouce
 {
     public class ManagerInfoManager
     {
+        /// <summary>
+        /// 用帳號抓取該管理員資訊
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
         public static Manager GETManagerInfoAccount(string account)
         {
             try
@@ -30,7 +35,11 @@ namespace PurchasingSystem.DBSouce
                 return null;
             }
         }
-
+        /// <summary>
+        /// 用GUID抓取該管理員資訊
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
         public static Manager GETManagerInfoAccountByUserID(Guid userID)
         {
             try
@@ -52,7 +61,10 @@ namespace PurchasingSystem.DBSouce
                 return null;
             }
         }
-
+        /// <summary>
+        /// 讀取所有管理員的資訊
+        /// </summary>
+        /// <returns></returns>
         public static List<Manager> GETManagerInfoToList()
         {
             try
@@ -73,6 +85,11 @@ namespace PurchasingSystem.DBSouce
                 return null;
             }
         }
+        /// <summary>
+        /// 確認帳號是否被使用
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
         public static bool IsAccountCreated(string account)
         {
 
@@ -98,6 +115,10 @@ namespace PurchasingSystem.DBSouce
                 return false;
             }
         }
+        /// <summary>
+        /// 新增管理員
+        /// </summary>
+        /// <param name="newManager"></param>
         public static void CreateManager(Manager newManager)
         {
             try
@@ -114,6 +135,12 @@ namespace PurchasingSystem.DBSouce
 
             }
         }
+        /// <summary>
+        /// 修改管理員資料
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="pwd"></param>
+        /// <param name="level"></param>
         public static void UpdateManager(string account, string pwd, int level)
         {
             try
@@ -140,6 +167,10 @@ namespace PurchasingSystem.DBSouce
 
             }
         }
+        /// <summary>
+        /// 刪除管理員
+        /// </summary>
+        /// <param name="account"></param>
         public static void DelManager(string account)
         {
             try
@@ -165,7 +196,10 @@ namespace PurchasingSystem.DBSouce
 
             }
         }
-
+        /// <summary>
+        /// 讀取額外款項資訊(匯率、代購費...等)
+        /// </summary>
+        /// <returns></returns>
         public static List<CostData> GETCostData()
         {
             try
@@ -186,6 +220,11 @@ namespace PurchasingSystem.DBSouce
                 return null;
             }
         }
+        /// <summary>
+        /// 更新額外款項資訊(匯率、代購費...等)
+        /// </summary>
+        /// <param name="newCashRate"></param>
+        /// <param name="newPurchasingCost"></param>
         public static void UpdateCostData(Decimal newCashRate, Decimal newPurchasingCost)
         {
             try

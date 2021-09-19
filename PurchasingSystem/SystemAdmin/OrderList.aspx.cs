@@ -10,16 +10,19 @@ using System.Web.UI.WebControls;
 
 namespace PurchasingSystem.SystemAdmin
 {
+    /// <summary>
+    /// 該使用者的所有訂單
+    /// </summary>
     public partial class OrderList : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!AuthManger.IsLogined())
+            if (!AuthManger.IsLogined())//檢查登入
             {
                 Response.Redirect("/Login.aspx");
                 return;
             }
-            var cUser = AuthManger.GetCurrentUser();
+            var cUser = AuthManger.GetCurrentUser();//讀取該使用者的資訊
             if (cUser == null)
             {
                 this.Session["UserLoginInfo"] = null;
@@ -29,7 +32,7 @@ namespace PurchasingSystem.SystemAdmin
             }
             if (!IsPostBack)
             {
-
+                //讀取該使用者的所有訂單
                 var list = OrderManager.GETAllOrderInfo(cUser.UserGuid);
                 if (list.Count > 0)
                 {
@@ -41,6 +44,7 @@ namespace PurchasingSystem.SystemAdmin
 
         protected void OrderListView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //訂單狀態的顯示文字
             var row = e.Row;
             if (row.RowType == DataControlRowType.DataRow)
             {
@@ -98,7 +102,7 @@ namespace PurchasingSystem.SystemAdmin
 
                 var custid = Convert.ToInt32( e.CommandArgument.ToString());
                 var thisOrder = OrderManager.GETOrderInfo(custid);
-                if(thisOrder.IsBuy == 0 && thisOrder.OrderStatus >=0 && thisOrder.OrderStatus<=1 )
+                if(thisOrder.IsBuy == 0 && thisOrder.OrderStatus >=0 && thisOrder.OrderStatus<=1 )//當此筆訂單為尚未付款，可以做取消的動作
                 { 
                 OrderManager.UpdateOrderStatus(custid, -1);
                 Response.Redirect("/SystemAdmin/OrderList.aspx");

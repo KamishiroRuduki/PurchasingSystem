@@ -9,6 +9,9 @@ using PurchasingSystem.DBSouce;
 using BankJsonData;
 namespace PurchasingSystem
 {
+    /// <summary>
+    /// 使用者註冊
+    /// </summary>
     public partial class Register : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -49,11 +52,11 @@ namespace PurchasingSystem
                 return;
             }
             string paymentProfile = string.Empty;
-            if (this.payType.SelectedValue == "1")
+            if (this.payType.SelectedValue == "1")//銀行轉帳的話，抓取下拉選單選到的銀行資訊跟顧客的銀行帳號
             {
                 paymentProfile = bankcodeDDList.SelectedValue + " " + this.txtPaymentProfile.Text;
             }
-            else
+            else//信用卡只抓卡號
             {
                 paymentProfile = this.txtPaymentProfile.Text;
             }

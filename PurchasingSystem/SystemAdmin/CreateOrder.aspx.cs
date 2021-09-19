@@ -10,16 +10,19 @@ using PurchasingSystem.Auth;
 
 namespace PurchasingSystem.SystemAdmin
 {
+    /// <summary>
+    /// 委託代購頁面
+    /// </summary>
     public partial class CreateOrder : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!AuthManger.IsLogined())
+            if (!AuthManger.IsLogined())//檢查登入
             {
                 Response.Redirect("/Login.aspx");
                 return;
             }
-            var cUser = AuthManger.GetCurrentUser();
+            var cUser = AuthManger.GetCurrentUser();//讀取該使用者資訊
             if (cUser == null)
             {
                 this.Session["UserLoginInfo"] = null;
@@ -108,7 +111,7 @@ namespace PurchasingSystem.SystemAdmin
 
             };
             OrderManager.CreateOrder(neworder);
-
+            //-----------------訂單成立後先把訂單資料寫入DB，再讀取訂單ID讓該訂單的所有商品有訂單ID後再將商品資訊寫入DB
             var order = OrderManager.GETOrderInfo(user.UserID);
             // if (txt != null)
             for (int i = 0; i < ssURL.Length; i++)

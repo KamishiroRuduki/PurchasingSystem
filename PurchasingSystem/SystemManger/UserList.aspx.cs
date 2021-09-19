@@ -11,6 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace PurchasingSystem.SystemManger
 {
+    /// <summary>
+    /// 使用者清單
+    /// </summary>
     public partial class UserList : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -31,7 +34,7 @@ namespace PurchasingSystem.SystemManger
 
             if (!IsPostBack)
             {
-                if (this.Request.QueryString["ID"] == null)
+                if (this.Request.QueryString["ID"] == null)//有ID就顯示該使用者的資訊，沒有就顯示所有使用者
                 {
                     var list = UserInfoManager.GETUserInfoToList();
                     if (list.Count > 0)
@@ -40,7 +43,7 @@ namespace PurchasingSystem.SystemManger
                         this.GridView1.DataBind();
                     }
 
-                    if (cUser.Level >= 2)
+                    if (cUser.Level >= 2)//高級管理員以上才能使用黑名單功能
                     {
                         for (int i = 0; i < list.Count; i++)
                         {
@@ -59,7 +62,7 @@ namespace PurchasingSystem.SystemManger
                         this.GridView1.DataBind();
                     }
 
-                    if (cUser.Level >= 2)
+                    if (cUser.Level >= 2)//高級管理員以上才能使用黑名單功能
                     {
                         for (int i = 0; i < list.Count; i++)
                         {
@@ -73,6 +76,7 @@ namespace PurchasingSystem.SystemManger
 
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //付款資訊的顯示文字
             var row = e.Row;
             if (row.RowType == DataControlRowType.DataRow)
             {

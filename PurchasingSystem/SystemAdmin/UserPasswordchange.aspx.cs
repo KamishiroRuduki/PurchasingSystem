@@ -10,23 +10,26 @@ using PurchasingSystem.ORM.DBModels;
 
 namespace PurchasingSystem.SystemAdmin
 {
+    /// <summary>
+    /// 使用者變更密碼
+    /// </summary>
     public partial class UserPasswordchange : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!AuthManger.IsLogined())
-            //{
-            //    Response.Redirect("/Login.aspx");
-            //    return;
-            //}
-            //var cUser = AuthManger.GetCurrentUser();
-            //if (cUser == null)
-            //{
-            //    this.Session["UserLoginInfo"] = null;
-            //    Response.Redirect("/Login.aspx");
-            //    return;
+            if (!AuthManger.IsLogined())//檢查登入
+            {
+                Response.Redirect("/Login.aspx");
+                return;
+            }
+            var cUser = AuthManger.GetCurrentUser();//讀取該使用者資訊
+            if (cUser == null)
+            {
+                this.Session["UserLoginInfo"] = null;
+                Response.Redirect("/Login.aspx");
+                return;
 
-            //}
+            }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)

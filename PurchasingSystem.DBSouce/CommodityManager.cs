@@ -31,7 +31,11 @@ namespace PurchasingSystem.DBSouce
 
             }
         }
-
+        /// <summary>
+        /// 依訂單ID讀取該訂單的所有商品資訊
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <returns></returns>
         public static List<CommodityModel> GETCommodityInfo(int orderID)
         {
             try
@@ -79,7 +83,13 @@ namespace PurchasingSystem.DBSouce
                 return null;
             }
         }
-
+        /// <summary>
+        /// 更新商品資訊
+        /// </summary>
+        /// <param name="price"></param>
+        /// <param name="type"></param>
+        /// <param name="isbuy"></param>
+        /// <param name="id"></param>
         public static void UpdateCommodity(int price, string type, int isbuy, int id)
         {
             try

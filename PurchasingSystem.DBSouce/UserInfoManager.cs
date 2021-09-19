@@ -9,6 +9,11 @@ namespace PurchasingSystem.DBSouce
 {
     public class UserInfoManager
     {
+        /// <summary>
+        /// 依帳號讀取使用者資訊
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
         public static UserInfo GETUserInfoAccount(string account)
         {
             try
@@ -30,6 +35,11 @@ namespace PurchasingSystem.DBSouce
                 return null;
             }
         }
+        /// <summary>
+        /// 依GUID讀取使用者資訊
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
         public static List<UserInfo> GETUserInfoAccount(Guid userid)
         {
             try
@@ -51,6 +61,11 @@ namespace PurchasingSystem.DBSouce
                 return null;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
         public static string GETUserInfoEmail(Guid userid)
         {
             try
@@ -75,7 +90,11 @@ namespace PurchasingSystem.DBSouce
                 return null;
             }
         }
-            public static List<UserInfo> GETUserInfoToList()
+        /// <summary>
+        /// 讀取黑名單以外的所有使用者資訊
+        /// </summary>
+        /// <returns></returns>
+        public static List<UserInfo> GETUserInfoToList()
         {
             try
             {
@@ -186,6 +205,11 @@ namespace PurchasingSystem.DBSouce
                 return false;
             }
         }
+        /// <summary>
+        /// 判斷此銀行帳號或信用卡卡號是否已經被使用過
+        /// </summary>
+        /// <param name="paymentProfile"></param>
+        /// <returns></returns>
         public static bool IsPaymentCreated(string paymentProfile)
         {
 
@@ -228,7 +252,10 @@ namespace PurchasingSystem.DBSouce
 
             }
         }
-
+        /// <summary>
+        /// 更新使用者資訊
+        /// </summary>
+        /// <param name="user"></param>
         public static void UpdateUser(UserInfo user)
         {
             try
@@ -241,8 +268,8 @@ namespace PurchasingSystem.DBSouce
                          select item);
 
                     var list = query.FirstOrDefault();
-                    if(list!= null)
-                    {                       
+                    if (list != null)
+                    {
                         list.Name = user.Name;
                         list.MobilePhone = user.MobilePhone;
                         list.Email = user.Email;
@@ -259,7 +286,11 @@ namespace PurchasingSystem.DBSouce
 
             }
         }
-
+        /// <summary>
+        /// 更新密碼
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="pwd"></param>
         public static void UpdateUserPassword(string account, string pwd)
         {
             try
@@ -285,7 +316,10 @@ namespace PurchasingSystem.DBSouce
 
             }
         }
-
+        /// <summary>
+        /// 黑名單
+        /// </summary>
+        /// <param name="account"></param>
         public static void UpdateUserToBlackList(string account)
         {
             try

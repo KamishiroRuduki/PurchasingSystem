@@ -10,6 +10,10 @@ namespace PurchasingSystem.Auth
 {
     public class AuthManger
     {
+        /// <summary>
+        /// 檢查登入
+        /// </summary>
+        /// <returns></returns>
         public static bool IsLogined()
         {
             if (HttpContext.Current.Session["UserLoginInfo"] == null)
@@ -17,6 +21,10 @@ namespace PurchasingSystem.Auth
             else
                 return true;
         }
+        /// <summary>
+        /// 取得使用者資訊
+        /// </summary>
+        /// <returns></returns>
         public static UserInfoModel GetCurrentUser()
         {
             string account = HttpContext.Current.Session["UserLoginInfo"] as string;
@@ -44,12 +52,20 @@ namespace PurchasingSystem.Auth
 
             return model;
         }
-
+        /// <summary>
+        /// 登出
+        /// </summary>
         public static void Logout()
         {
             HttpContext.Current.Session["UserLoginInfo"] = null; //清除登入資訊
         }
-
+        /// <summary>
+        /// 使用者登入
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="pwd"></param>
+        /// <param name="errMsg"></param>
+        /// <returns></returns>
         public static bool TryLogin(string account, string pwd, out string errMsg)
         {
             //檢查帳號/密碼是否正確
@@ -78,7 +94,10 @@ namespace PurchasingSystem.Auth
             }
 
         }
-
+        /// <summary>
+        /// 檢查管理員登入
+        /// </summary>
+        /// <returns></returns>
         public static bool ManagerIsLogined()
         {
             if (HttpContext.Current.Session["ManagerLoginInfo"] == null)
@@ -86,6 +105,10 @@ namespace PurchasingSystem.Auth
             else
                 return true;
         }
+        /// <summary>
+        /// 取得該管理員資訊
+        /// </summary>
+        /// <returns></returns>
         public static ManagerInfoModel GetCurrentManager()
         {
             string account = HttpContext.Current.Session["ManagerLoginInfo"] as string;
@@ -108,11 +131,20 @@ namespace PurchasingSystem.Auth
             return model;
         }
 
+        /// <summary>
+        /// 登出(管理員用)
+        /// </summary>
         public static void ManagerLogout()
         {
             HttpContext.Current.Session["ManagerLoginInfo"] = null; //清除登入資訊
         }
-
+        /// <summary>
+        /// 管理員登入
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="pwd"></param>
+        /// <param name="errMsg"></param>
+        /// <returns></returns>
         public static bool TryManagerLogin(string account, string pwd, out string errMsg)
         {
             //檢查帳號/密碼是否正確

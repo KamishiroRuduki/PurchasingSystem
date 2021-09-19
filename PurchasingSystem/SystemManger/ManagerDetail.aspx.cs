@@ -11,16 +11,19 @@ using System.Web.UI.WebControls;
 
 namespace PurchasingSystem.SystemManger
 {
+    /// <summary>
+    /// 新增或修改管理員
+    /// </summary>
     public partial class ManagerDetail : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!AuthManger.ManagerIsLogined())
+            if (!AuthManger.ManagerIsLogined())//檢查登入
             {
                 Response.Redirect("/SystemManger/Login.aspx");
                 return;
             }
-            var cUser = AuthManger.GetCurrentManager();
+            var cUser = AuthManger.GetCurrentManager();//存取此管理員資訊
             if (cUser == null)
             {
                 this.Session["ManagerLoginInfo"] = null;
@@ -28,14 +31,14 @@ namespace PurchasingSystem.SystemManger
                 return;
 
             }
-            if (cUser.Level < 2)
+            if (cUser.Level < 2)//檢查權限
             {
                 Response.Redirect("/SystemManger/ManagerInfo.aspx");
                 return;
             }
             if (!IsPostBack)
             {
-                if (this.Request.QueryString["ID"] != null)
+                if (this.Request.QueryString["ID"] != null)//有ID是修改，沒ID是新增
                 {
                     var userID = this.Request.QueryString["ID"].ToString();
                     var manager = ManagerInfoManager.GETManagerInfoAccountByUserID(userID.ToGuid());
@@ -83,7 +86,7 @@ namespace PurchasingSystem.SystemManger
                     this.ltMsg.Text = "請輸入姓名";
                     return;
                 }
-                Manager newManager = new Manager()
+                Manager newManager = new Manager()//建立新管理員
                 {
                     UserID = Guid.NewGuid(),
                     Account = this.txtAccount.Text,
@@ -98,13 +101,13 @@ namespace PurchasingSystem.SystemManger
             Response.Redirect("/SystemManger/ManagerList.aspx");
         }
 
-        protected void btnCancel_Click(object sender, EventArgs e)
+        protected void btnCancel_Click(object sender, EventArgs e)//取消按鈕
         {
             Response.Redirect("/SystemManger/ManagerList.aspx");
             return;
         }
 
-        protected void btnDel_Click(object sender, EventArgs e)
+        protected void btnDel_Click(object sender, EventArgs e)//刪除
         {
             ManagerInfoManager.DelManager(this.lblAccount.Text);
             Response.Redirect("/SystemManger/ManagerList.aspx");

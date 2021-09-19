@@ -8,11 +8,14 @@ using System.Web.UI.WebControls;
 
 namespace PurchasingSystem
 {
+    /// <summary>
+    /// 使用者登入頁
+    /// </summary>
     public partial class WebForm2 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (this.Session["UserLoginInfo"] != null)
+            if (this.Session["UserLoginInfo"] != null)//登入登出鈕做切換
             {
                 this.plcLogin.Visible = false;
                 Response.Redirect("/SystemAdmin/UserInfo.aspx");

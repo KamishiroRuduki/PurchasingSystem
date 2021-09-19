@@ -11,18 +11,20 @@ using System.Net.Mail;
 
 namespace PurchasingSystem.SystemManger
 {
-    
+    /// <summary>
+    /// 訂單、商品資料寫入和修改
+    /// </summary>
     public partial class OrderDetail : System.Web.UI.Page
     {
    
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!AuthManger.ManagerIsLogined())
+            if (!AuthManger.ManagerIsLogined())//檢查登入
             {
                 Response.Redirect("/SystemManger/Login.aspx");
                 return;
             }
-            var cUser = AuthManger.GetCurrentManager();
+            var cUser = AuthManger.GetCurrentManager();//讀取該管理員資訊
             if (cUser == null)
             {
                 this.Session["ManagerLoginInfo"] = null;
@@ -30,14 +32,14 @@ namespace PurchasingSystem.SystemManger
                 return;
 
             }
-            if (cUser.Level < 1)
+            if (cUser.Level < 1)//一般管理員以上才能進此頁面
             {
                 Response.Redirect("/SystemManger/ManagerInfo.aspx");
                 return;
             }
             if (!IsPostBack)
             {
-                if (this.Request.QueryString["ID"] != null)
+                if (this.Request.QueryString["ID"] != null)//依訂單ID抓取該訂單資訊
                 {
                     var strID = this.Request.QueryString["ID"].ToString();
                     int id;
@@ -48,17 +50,18 @@ namespace PurchasingSystem.SystemManger
                         
                         if (order != null)
                         {
-                            if(order[0].OrderStatus == 3 && cUser.Level < 2)
+                            if(order[0].OrderStatus == 3 && cUser.Level < 2)//如果是以成立的訂單，就只有高級管理員以上才能做修改
                             {
                                 Response.Redirect("/SystemManger/OrderListManager.aspx");
                                 return;
                             }
-
+                            
                             this.GridView2.DataSource = order;
                             this.GridView2.DataBind();
                         }
                         if (list.Count > 0)
                         {
+                            //該訂單的商品列表
                             this.GridView1.DataSource = list;
                             this.GridView1.DataBind();
                             for ( int i =0; i< list.Count; i++)
@@ -81,7 +84,11 @@ namespace PurchasingSystem.SystemManger
                 }
             }
         }
-
+        /// <summary>
+        /// 儲存更新或寫入的資訊
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnSaveCommodity_Click(object sender, EventArgs e)
         {
             if (this.GridView1.Rows.Count > 0)
@@ -116,7 +123,7 @@ namespace PurchasingSystem.SystemManger
                 if (!string.IsNullOrWhiteSpace(txtamount.Text) && txtamount.Text != "0" )//有付款後才檢查
                 {
                     var amountTest = Convert.ToDecimal(txtamount.Text);                  
-                    var pricetxt = Decimal.Multiply(priceText, (decimal)0.9);
+                    var pricetxt = Decimal.Multiply(priceText, (decimal)0.9);//付款金額不得小於總金額，但是只跳警告，後續要做什麼處理由管理員決定
                     if (pricetxt > amountTest)
                     {
                         Response.Write("<Script language='JavaScript'>alert('付款金額不正確');  </Script>");
@@ -147,7 +154,7 @@ namespace PurchasingSystem.SystemManger
                 var emailstr = UserInfoManager.GETUserInfoEmail(order.UserID);
                 string body = Emailbody();
                 if (body != null)
-                    sendGmail(emailstr, body);
+                    sendGmail(emailstr, body);//自動發MAIL
 
                 OrderManager.UpdateOrderByManager(orderUpdate);
 
@@ -195,6 +202,7 @@ namespace PurchasingSystem.SystemManger
 
         protected void IsBuyDDList_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             if (this.GridView1.Rows.Count > 0)
             {
                 int j = this.GridView1.Rows.Count;
@@ -204,7 +212,7 @@ namespace PurchasingSystem.SystemManger
                     var isBuy = (DropDownList)this.GridView1.Rows[i].FindControl("IsBuyDDList");
                     if (isBuy.SelectedValue == "1" || isBuy.SelectedValue == "-1")
                         j--;
-                    if(isBuy.SelectedValue == "-1")
+                    if(isBuy.SelectedValue == "-1")//商品有任何一筆是缺貨，則總金額能做修改(詢問顧客後，此訂單還要繼續的情況)
                     {
                         var txtprice = (TextBox)this.GridView2.Rows[0].FindControl("txtPrice");
                         txtprice.Enabled = true;
@@ -212,6 +220,7 @@ namespace PurchasingSystem.SystemManger
                         
 
                 }
+                //所有商品皆為已購買(包含其中有缺貨)，訂單顯示文字為已購買
                 var isBuyOrder = (Literal)this.GridView2.Rows[0].FindControl("litOrderIsbuy");
                 if (j == 0)                 
                     isBuyOrder.Text = "已購買";
@@ -224,6 +233,7 @@ namespace PurchasingSystem.SystemManger
 
         protected void GridView2_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //訂單是否為已購買的顯示文字
             var row = e.Row;
             if (row.RowType == DataControlRowType.DataRow)
             {
@@ -245,6 +255,10 @@ namespace PurchasingSystem.SystemManger
 
             }
         }
+        /// <summary>
+        /// 判斷此訂單是否為已購買
+        /// </summary>
+        /// <returns></returns>
         private int OrderIsBuyValue()
         {
             var isBuyOrder = (Literal)this.GridView2.Rows[0].FindControl("litOrderIsbuy");
@@ -264,7 +278,7 @@ namespace PurchasingSystem.SystemManger
 
         }
         /// <summary>
-        /// 商品金額加總計算後是否與使用者田的金額相符
+        /// 商品金額加總計算後是否與使用者填的金額相符
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -280,7 +294,7 @@ namespace PurchasingSystem.SystemManger
                 {
 
                     var txtPrice = (TextBox)this.GridView1.Rows[i].FindControl("txtPrice");
-                    if (txtPrice.Text == null || txtPrice.Text =="0")
+                    if (txtPrice.Text == null || txtPrice.Text =="0")//金額不為0或尚未填就跳過不做此判斷
                         return;
                     else
                         priceSum += Convert.ToDecimal(txtPrice.Text);
@@ -293,7 +307,7 @@ namespace PurchasingSystem.SystemManger
                 if (int.TryParse(strID, out id))
                 {                    
                     var order = OrderManager.GETOrderInfo(id);
-                    if (priceTW != order.PriceSum)
+                    if (priceTW != order.PriceSum)//只跳警告，後續要做什麼處理由管理員決定
                         Response.Write("<Script language='JavaScript'>alert('訂單金額不正確');  </Script>");
                 }
                    
@@ -301,6 +315,11 @@ namespace PurchasingSystem.SystemManger
             }
 
         }
+        /// <summary>
+        /// 自動發MAIL
+        /// </summary>
+        /// <param name="emailstr"></param>
+        /// <param name="body"></param>
         public void sendGmail( string emailstr, string body)
         {
             MailMessage mail = new MailMessage();
@@ -340,7 +359,10 @@ namespace PurchasingSystem.SystemManger
             //放掉宣告出來的mail
             mail.Dispose();
         }
-
+        /// <summary>
+        /// MAIL內文
+        /// </summary>
+        /// <returns></returns>
         private string Emailbody()
         {
             var strID = this.Request.QueryString["ID"].ToString();
@@ -366,7 +388,7 @@ namespace PurchasingSystem.SystemManger
                         body = "感謝使用本系統作代購服務，已經確認貴客的款項，會盡快處理您的訂單";
                     }
                 }
-                if(status == -1)
+                if(status == -1)//不成立用，尚未完成
                 {
 
                 }
